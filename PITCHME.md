@@ -80,19 +80,25 @@ struct Angle
 ---
 
 <div class="left">
+
 ###CallByValue
+
 ```csharp
 void CallByValue() => 
 	Angle.ByValue(angle);
 ```
+
 </div>
 
 <div class="right">
+
 ###CallByReference
+
 ```csharp
 void CallByReference() => 
 	Angle.ByReference(ref angle);
 ```
+
 </div>
 
 NOTE:
@@ -102,23 +108,29 @@ NOTE:
 ---
 
 <div class="left">
+
 ###CallByValue
+
 ```
 IL_0000: ldarg.0
 IL_0001: ldfld valuetype Angle Example::angle
 IL_0006: call void Angle::ByValue(valuetype Angle)
 IL_000b: ret
 ```
+
 </div>
 
 <div class="right">
+
 ###CallByReference
+
 ```
 IL_0000: ldarg.0
 IL_0001: ldflda valuetype Angle Example::angle
 IL_0006: call void Angle::ByReference(valuetype Angle&)
 IL_000b: ret
 ```
+
 </div>
 
 NOTE:
