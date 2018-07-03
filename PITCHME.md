@@ -1,3 +1,6 @@
+theme : beige
+layout : center-left
+
 ## Span&lt;T&gt; and Refs 
 
 ### *Safe memory optimizations in .NET*
@@ -41,7 +44,7 @@
   + Boolean, Char
   + Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64 
   + Single, Double, Decimal
-  + User defined
+  + User-defined
 
 @ulend
 
