@@ -58,10 +58,10 @@
 
 @ulend
 
-NOTES:
+Note:
 
-- Allocated on the stack is an advantage.
-- Arguments passed by value may be a disadvange.
+- Allocated on the stack **is an advantage**.
+- Arguments passed by value **may be a disadvange**.
 
 ---
 
