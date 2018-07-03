@@ -70,6 +70,7 @@ Note:
 ---
 
 **Twitter:** @AntaoAlmada
+
 **Medium:** https://medium.com/@antao.almada/
 
 ---
