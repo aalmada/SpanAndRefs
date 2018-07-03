@@ -1,3 +1,4 @@
+@title[Span&lt;T&gt; and Refs]
 
 ## Span&lt;T&gt; and Refs 
 
@@ -64,13 +65,37 @@ Note:
 
 ---
 
+```csharp
+struct Angle
+{
+    public int Degrees;
+    public int Minutes;
+    public double Seconds;
+    
+    public static void ByValue(Angle angle) {}
+    public static void ByReference(ref Angle angle) {}
+}
+```
+
+---
+
+---
+
+```csharp
+
+```
+
+NOTE:
+
+---
+
 ## Span <T>
 
 ---
 
-**Twitter:** @AntaoAlmada
+@fa[twitter]  [https://twitter.com/AntaoAlmada](@AntaoAlmada) <br/>
 
-**Medium:** https://medium.com/@antao.almada/
+@fa[medium] [https://medium.com/@antao.almada](@antao.almada) <br/>
 
 ---
 
