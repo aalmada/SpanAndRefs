@@ -103,8 +103,6 @@ NOTE:
 .method private hidebysig 
 instance void CallByValue () cil managed 
 {
-    .maxstack 8
-
     IL_0000: ldarg.0
     IL_0001: ldfld valuetype Angle Example::angle
     IL_0006: call void Angle::ByValue(valuetype Angle)
@@ -114,8 +112,6 @@ instance void CallByValue () cil managed
 .method private hidebysig 
 instance void CallByReference () cil managed 
 {
-    .maxstack 8
-
     IL_0000: ldarg.0
     IL_0001: ldflda valuetype Angle Example::angle
     IL_0006: call void Angle::ByReference(valuetype Angle&)
@@ -125,7 +121,7 @@ instance void CallByReference () cil managed
 ```
 
 @[2,13]
-@[8-11, 20-23](ldfld - Pushes the **value of field** onto the stack.<br/>ldflda - Pushes the **address of field** on the stack.)
+@[4-7, 14-17](ldfld - Pushes the **value of field** onto the stack.<br/>ldflda - Pushes the **address of field** on the stack.)
 
 NOTE:
 [SharpLab.io](https://sharplab.io/#v2:C4LglgNgPgsAUAZ2AJwK4GNgAICCA7AcwgFN4BveLKrAAQGYsw9sARYg5Y4hAbkuvqNmWALJNUwbnzjVaDACYB7VACMSWAMrF0ivPN78qhubQCMANloAWLACEAngDUAhhFTEAFPiLEszwiQAlFhkAL7GgjQW1nb2AErEAGbEnHjonpyJuAG+/j7BYfDhcPCRAExYAKIAHs4AtgAO6uTG3up56gC8WHjEAO7ZPiFYbBxcCFjdAJwADAA0ouKSE93zmtq6+pNYMwB0M1ih0rIRNgDCrhAOLm6ewZ0AfFjGsm3Eu9eu7h4dxIHH1FOWAuECu8SSKWIaTukyeL2obw+4OSqXSHkyfhy/yK8CAA==)
