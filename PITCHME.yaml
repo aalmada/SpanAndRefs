@@ -1,3 +1,5 @@
 layout : center
 theme : beige
-footnote : @fa[creative-commons] @fa[creative-commons-by]
+published : false
+charts : true
+
