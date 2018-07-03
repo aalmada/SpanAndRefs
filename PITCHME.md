@@ -5,7 +5,8 @@
 **Antão Almada**<br>
 *Principal Engineer @ Farfetch*<br>
 
-@fa[creative-commons] @fa[creative-commons-by]
+@fa[creative-commons]
+@fa[creative-commons-by]
 
 ---
 
