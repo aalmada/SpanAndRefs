@@ -1,11 +1,11 @@
-## Span<T> and Refs 
+## Span&lt;T&gt; and Refs 
 
-### Safe memory optimizations
+### *Safe memory optimizations in .NET*
 
-**Antão Almada**
-*Principal Engineer @ Farfetch*
+**Antão Almada**<br>
+*Principal Engineer @ Farfetch*<br>
 
-@fa[creative-commons]
+@fa[creative-commons]@fa[creative-commons-by]
 
 ---
 
