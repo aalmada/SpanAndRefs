@@ -84,16 +84,13 @@ struct Angle
 ```csharp
 void CallByValue() => 
 	Angle.ByValue(angle);
-```
 
-</div>
-
-<div class="right">
-
-```csharp
 void CallByReference() => 
 	Angle.ByReference(ref angle);
 ```
+
+@[1-2]
+@[4-5]
 
 </div>
 
@@ -106,21 +103,32 @@ NOTE:
 <div class="left">
 
 ```
+.method private hidebysig 
+instance void CallByValue () cil managed 
+{
+// Method begins at RVA 0x2052
+// Code size 12 (0xc)
+.maxstack 8
+
 IL_0000: ldarg.0
 IL_0001: ldfld valuetype Angle Example::angle
 IL_0006: call void Angle::ByValue(valuetype Angle)
 IL_000b: ret
-```
+} // end of method Example::CallByValue
 
-</div>
+.method private hidebysig 
+instance void CallByReference () cil managed 
+{
+// Method begins at RVA 0x205f
+// Code size 12 (0xc)
+.maxstack 8
 
-<div class="right">
-
-```
 IL_0000: ldarg.0
 IL_0001: ldflda valuetype Angle Example::angle
 IL_0006: call void Angle::ByReference(valuetype Angle&)
 IL_000b: ret
+} // end of method Example::CallByReference
+
 ```
 
 </div>
