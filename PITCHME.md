@@ -15,7 +15,7 @@
 - Pass-by-reference
 - Span<T>
 
-@endul
+@ulend
 
 ---
 
@@ -30,7 +30,7 @@
 - Reference Types
 - Pointer Types
 
-@endul
+@ulend
 
 ---
 
@@ -43,7 +43,7 @@
   + Single, Double, Decimal
   + User defined
 
-@endul
+@ulend
 
 ---
 
@@ -53,7 +53,7 @@
 - Allocated on the stack (except when boxed)
 - Arguments passed by value (copy)
 
-@endul
+@ulend
 
 ---
 
