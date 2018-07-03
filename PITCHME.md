@@ -9,8 +9,13 @@
 
 ---
 
+## Safe memory optimizations in .NET
+@ul
+
 - Pass-by-reference
 - Span<T>
+
+@endul
 
 ---
 
@@ -19,24 +24,36 @@
 ---
 
 ## .NET Types 
+@ul
 
 - Value Types
 - Reference Types
 - Pointer Types
 
----
-
-## Value Types
-
-- bool, byte, sbyte, char, short, ushort, int, uint, long, ulong, float, double, decimal
-- structs
+@endul
 
 ---
 
 ## Value Types
+@ul[spaced-list-items]
 
-- allocated on the stack (except when boxed)
-- arguments passed by value (copy)
+- Structs
+  + Boolean, Char
+  + Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64 
+  + Single, Double, Decimal
+  + User defined
+
+@endul
+
+---
+
+## Value Types
+@ul
+
+- Allocated on the stack (except when boxed)
+- Arguments passed by value (copy)
+
+@endul
 
 ---
 
