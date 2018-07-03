@@ -79,13 +79,50 @@ struct Angle
 
 ---
 
----
-
+<div class="left">
+###CallByValue
 ```csharp
-
+void CallByValue() => 
+	Angle.ByValue(angle);
 ```
+</div>
+
+<div class="right">
+###CallByReference
+```csharp
+void CallByReference() => 
+	Angle.ByReference(ref angle);
+```
+</div>
 
 NOTE:
+[SharpLab.io](https://sharplab.io/#v2:C4LglgNgPgsAUAZ2AJwK4GNgAICCA7AcwgFN4BveLKrAAQGYsw9sARYg5Y4hAbkuvqNmWALJNUwbnzjVaDACYB7VACMSWAMrF0ivPN78qhubQCMANloAWLACEAngDUAhhFTEAFPiLEszwiQAlFhkAL7GgjQW1nb2AErEAGbEnHjonpyJuAG+/j7BYfDhcPCRAExYAKIAHs4AtgAO6uTG3up56gC8WHjEAO7ZPiFYbBxcCFjdAJwADAA0ouKSE93zmtq6+pNYMwB0M1ih0rIRNgDCrhAOLm6ewZ0AfFjGsm3Eu9eu7h4dxIHH1FOWAuECu8SSKWIaTukyeL2obw+4OSqXSHkyfhy/yK8CAA==)
+
+---
+---
+
+<div class="left">
+###CallByValue
+```
+IL_0000: ldarg.0
+IL_0001: ldfld valuetype Angle Example::angle
+IL_0006: call void Angle::ByValue(valuetype Angle)
+IL_000b: ret
+```
+</div>
+
+<div class="right">
+###CallByReference
+```
+IL_0000: ldarg.0
+IL_0001: ldflda valuetype Angle Example::angle
+IL_0006: call void Angle::ByReference(valuetype Angle&)
+IL_000b: ret
+```
+</div>
+
+NOTE:
+[SharpLab.io](https://sharplab.io/#v2:C4LglgNgPgsAUAZ2AJwK4GNgAICCA7AcwgFN4BveLKrAAQGYsw9sARYg5Y4hAbkuvqNmWALJNUwbnzjVaDACYB7VACMSWAMrF0ivPN78qhubQCMANloAWLACEAngDUAhhFTEAFPiLEszwiQAlFhkAL7GgjQW1nb2AErEAGbEnHjonpyJuAG+/j7BYfDhcPCRAExYAKIAHs4AtgAO6uTG3up56gC8WHjEAO7ZPiFYbBxcCFjdAJwADAA0ouKSE93zmtq6+pNYMwB0M1ih0rIRNgDCrhAOLm6ewZ0AfFjGsm3Eu9eu7h4dxIHH1FOWAuECu8SSKWIaTukyeL2obw+4OSqXSHkyfhy/yK8CAA==)
 
 ---
 
@@ -93,9 +130,9 @@ NOTE:
 
 ---
 
-@fa[twitter]  [https://twitter.com/AntaoAlmada](@AntaoAlmada) <br/>
+@fa[twitter] [@AntaoAlmada](https://twitter.com/AntaoAlmada) <br/>
 
-@fa[medium] [https://medium.com/@antao.almada](@antao.almada) <br/>
+@fa[medium] [@antao.almada](https://medium.com/@antao.almada) <br/>
 
 ---
 
