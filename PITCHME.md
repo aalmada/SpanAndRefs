@@ -14,7 +14,7 @@
 @ul
 
 - Pass-by-reference
-- Span<T>
+- Span&lt;T&gt;
 
 @ulend
 
@@ -49,12 +49,19 @@
 ---
 
 ## Value Types
-@ul
+@ul[spaced-list-items]
 
-- Allocated on the stack (except when boxed)
-- Arguments passed by value (copy)
+- Allocated on the stack 
+  + Except when boxed
+- Arguments passed by value
+  + Full contents are copied
 
 @ulend
+
+NOTES:
+
+- Allocated on the stack is an advantage.
+- Arguments passed by value may be a disadvange.
 
 ---
 
