@@ -128,8 +128,8 @@ IL_000b: ret
 
 ```
 
-@[8-11]
-@[20-23]
+@[8-11](ldfld - Push the value of field of object (or value type) obj, onto the stack.)
+@[20-23](ldflda - Push the address of field of object obj on the stack.)
 
 
 NOTE:
