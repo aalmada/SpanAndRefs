@@ -1,5 +1,3 @@
-theme : beige
-layout : center-left
 
 ## Span&lt;T&gt; and Refs 
 
