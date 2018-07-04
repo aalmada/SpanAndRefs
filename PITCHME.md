@@ -7,14 +7,14 @@
 **Antão Almada**<br>
 *Principal Engineer @ Farfetch*<br>
 
-@fa[creative-commons] | @fa[creative-commons-by] | @fa[creative-commons-sa]
+@fa[creative-commons] @fa[creative-commons-by] @fa[creative-commons-sa]
 
 ---
 
 ## Safe memory optimizations in .NET
 @ul
 
-- Pass-by-reference
+- Pass-by-Reference
 - Span&lt;T&gt;
 
 @ulend
@@ -126,8 +126,27 @@ instance void CallByReference () cil managed
 @[1-2,10-11]
 @[4-7, 13-16](ldfld - Pushes the **value of field** onto the stack.<br/>ldflda - Pushes the **address of field** onto the stack.)
 
-NOTE:
-[SharpLab.io](https://sharplab.io/#v2:C4LglgNgPgsAUAZ2AJwK4GNgAICCA7AcwgFN4BveLKrAAQGYsw9sARYg5Y4hAbkuvqNmWALJNUwbnzjVaDACYB7VACMSWAMrF0ivPN78qhubQCMANloAWLACEAngDUAhhFTEAFPiLEszwiQAlFhkAL7GgjQW1nb2AErEAGbEnHjonpyJuAG+/j7BYfDhcPCRAExYAKIAHs4AtgAO6uTG3up56gC8WHjEAO7ZPiFYbBxcCFjdAJwADAA0ouKSE93zmtq6+pNYMwB0M1ih0rIRNgDCrhAOLm6ewZ0AfFjGsm3Eu9eu7h4dxIHH1FOWAuECu8SSKWIaTukyeL2obw+4OSqXSHkyfhy/yK8CAA==)
+---
+
+```
+Example.CallByValue()
+    L0000: push ebp
+    L0001: mov ebp, esp
+    L0003: add ecx, 0x4
+    L0006: sub esp, 0x10
+    L0009: movq xmm0, [ecx]
+    L000d: movq [esp], xmm0
+    L0012: movq xmm0, [ecx+0x8]
+    L0017: movq [esp+0x8], xmm0
+    L001d: call Angle.ByValue(Angle)
+    L0022: pop ebp
+    L0023: ret
+
+Example.CallByReference()
+    L0000: add ecx, 0x4
+    L0003: call Angle.ByReference(Angle ByRef)
+    L0008: ret
+```
 
 ---
 
