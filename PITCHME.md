@@ -7,7 +7,7 @@
 **Antão Almada**<br>
 *Principal Engineer @ Farfetch*<br>
 
-@fa[creative-commons] @fa[creative-commons-by] @fa[creative-commons-sa]
+@fa[creative-commons] @fa[creative-commons-by] 
 
 ---
 
@@ -23,7 +23,7 @@
 
 ## Pass-by-reference
 
----
++++
 
 ## .NET Types 
 @ul
@@ -34,7 +34,7 @@
 
 @ulend
 
----
++++
 
 ## Value Types
 @ul[spaced-list-items]
@@ -46,7 +46,7 @@
 
 @ulend
 
----
++++
 
 ## Value Types
 @ul[spaced-list-items]
@@ -63,7 +63,7 @@ Note:
 - Allocated on the stack **is an advantage**.
 - Arguments passed by value **may be a disadvange**.
 
----
++++
 
 ```csharp
 struct Angle
@@ -80,7 +80,7 @@ struct Angle
 @[3-5]
 @[7-8]
 
----
++++
 
 ```csharp
 public class Example 
@@ -100,7 +100,7 @@ public class Example
 NOTE:
 [SharpLab.io](https://sharplab.io/#v2:C4LglgNgPgsAUAZ2AJwK4GNgAICCA7AcwgFN4BveLKrAAQGYsw9sARYg5Y4hAbkuvqNmWALJNUwbnzjVaDACYB7VACMSWAMrF0ivPN78qhubQCMANloAWLACEAngDUAhhFTEAFPiLEszwiQAlFhkAL7GgjQW1nb2AErEAGbEnHjonpyJuAG+/j7BYfDhcPCRAExYAKIAHs4AtgAO6uTG3up56gC8WHjEAO7ZPiFYbBxcCFjdAJwADAA0ouKSE93zmtq6+pNYMwB0M1ih0rIRNgDCrhAOLm6ewZ0AfFjGsm3Eu9eu7h4dxIHH1FOWAuECu8SSKWIaTukyeL2obw+4OSqXSHkyfhy/yK8CAA==)
 
----
++++
 
 ```
 .method private hidebysig 
@@ -126,7 +126,7 @@ instance void CallByReference () cil managed
 @[1-2,10-11]
 @[4-7, 13-16](ldfld - Pushes the **value of field** onto the stack.<br/>ldflda - Pushes the **address of field** onto the stack.)
 
----
++++
 
 ```
 Example.CallByValue()
