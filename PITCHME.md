@@ -100,6 +100,8 @@ NOTE:
 
 +++
 
+## Intermediate Language
+
 ```
 .method private hidebysig 
 instance void CallByValue () cil managed 
@@ -124,6 +126,8 @@ instance void CallByReference () cil managed
 @[4-7, 13-16] (ldfld - Pushes the **value of field** onto the stack.<br/>ldflda - Pushes the **address of field** onto the stack.)
 
 +++
+
+## JIT Assembly
 
 ```
 Example.CallByValue()
