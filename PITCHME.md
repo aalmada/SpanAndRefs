@@ -12,7 +12,6 @@
 ---
 
 ## Safe memory optimizations in .NET
-@ul
 
 - Passing by reference
   + in
@@ -23,7 +22,9 @@
   + Span&lt;T&gt;
   + Memory&lt;T&gt;
 
-@ulend
+NOTE:
+
+"Safe" because some of these optimizations where possible but using pointers and the keyword 'unsafe'.
 
 ---
 
@@ -32,37 +33,28 @@
 +++
 
 ## .NET Types 
-@ul
 
 - Value Types
 - Reference Types
 - Pointer Types
 
-@ulend
-
 +++
 
 ## Value Types
-@ul[spaced-list-items]
 
 - Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64 
 - Single, Double, Decimal
 - Boolean, Char
 - User-defined structs
 
-@ulend
-
 +++
 
 ## Value Types
-@ul
 
 - Allocated on the stack 
   + Except when boxed
 - Arguments passed by value
-  + Full contents are copied
-
-@ulend
+  + Full content is copied every time
 
 Note:
 
@@ -126,7 +118,6 @@ instance void CallByReference () cil managed
     IL_0006: call void Angle::ByReference(valuetype Angle&)
     IL_000b: ret
 }
-
 ```
 
 @[1-2,10-11]
@@ -364,16 +355,12 @@ NOTE:
 
 ## ref returns
 
-@ul
-
 - **Can't** be used on:
   + Local variables
   + this
 - **Can** be used on:
   + Heap-allocated variables
   + Passed-by-reference arguments
-
-@ulend
 
 +++
 
@@ -401,6 +388,10 @@ NOTE:
 ---
 
 # ref locals
+
+NOTE:
+
+Allow storing references as local variables
 
 +++
 
