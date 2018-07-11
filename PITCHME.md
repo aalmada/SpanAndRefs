@@ -191,9 +191,11 @@ Using pass-by-reference improves performance but usually means the value will be
 
 ---
 
-## in - ref readonly arguments
+## in
 
 +++
+
+### Callee
 
 ```
 struct Angle
@@ -217,6 +219,8 @@ NOTE:
 
 +++
 
+### Caller
+
 ```
 var angle = new Angle { Degrees = 90, Minutes = 30, Seconds = 0.0 };
 Console.WriteLine(Angle.ToDegrees(angle));
@@ -225,6 +229,8 @@ Console.WriteLine(Angle.ToDegrees(angle));
 @[2] (The use of 'in' is optional)
 
 +++
+
+## Caller generated code
 
 ```
 Angle angle = default(Angle);
@@ -242,6 +248,10 @@ NOTE:
 **Defensive copies are performed every time an instance is declared as readonly but a method is called that may mutate it!**
 
 [SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJBnALgJwK4GM0QEEA7AcwBsBTJAbyQnqgGYIBLI/AEQpIwopQSIGTVuwgBZNljT9BwkMwAmAeywAjShADKFHMqKKBdBsfoKo0AGwQV6zQBVlXHnxQAKNoVKaAht4oAlBAAvAB8psIQfuQUAHTOvPwQANRR/rGSRNJJAPQQlmCxkKnRlLE6egYoEHmMBYVgggC+SEjmIABMEACiAB4+ALYADpo0Ee1WUAAsFgAcbkERtIgAkMIAbj4YaTEhEEQUAO5eu9QQCa57AJxgADQSUjLVwRCMd9q6+oZ7DRBNcpEzNArm5iDFYo4Lvw3KVAgEAfQWogkUA=)
+
+---
+
+## readonly struct
 
 +++
 
@@ -280,6 +290,19 @@ NOTE:
 [SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJAnApgQwCYHsB2ANgJ4QDOALigK4DG5EAgngOYFpIDeSEPUAzBHTZ8xCAEs89ACJpm6NKQSJe/QZlyESE+gFkJVcgqUqQAoRtG4qAIzYQAymhr4si7r3c9TjFmwAU2hBYsvKkADTikhAAtvqG4UE4NnakTi6kAJQQALwAfJ4qEH4ycmgKEXp4BuUOaXiuWdlFBSoAkMGlNS28rbFV8RAAPBAAbJAA/DFxChAAXBDkABYoOADuEHho6wwozFTRaJIA8gZHAGYAShgsaACiAB40aAAO5GL4fngYBzhnfn3VTIZCLdHitVLOeqkIajMAAOgmZDqrjmC2Waw2W0Yu32h3IJ3xl2uzDujxebw+Xx+fwh6QyGQKrQyxkKPAK3hgI0SyTQEAAKjgSqEAngfKxecS2I18spWRBJWg4UKytCANTy3yKyqAiAAelhCIg6oVcMckJR+r4Y3hYCUAF8kEgOQAmCAPb7POycdkCTlQAAsUGgAA4/FkClxEK0VAA3DAoDXinKY7aavwdULzACcYAiAPi8z4uaR5tI8xtzNBQazfiY4rhAuVCj8CvpLJ4DsQnaAA===)
 
 No copy is made now!
+
+---
+
+```
+Angle angle = new Angle(90, 30, 0.0);
+Console.WriteLine(Angle.ToDegrees(ref angle));
+```
+
+@[1-2] (No defensive copies)
+
+---
+
+
 
 ---
 
