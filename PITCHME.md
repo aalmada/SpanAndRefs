@@ -185,6 +185,10 @@ Using pass-by-reference improves performance but usually means the value will be
 
 +++
 
+
+
++++
+
 ```
 struct Angle
 {
@@ -236,8 +240,8 @@ readonly struct Angle
 
 @[1](readonly struct)
 @[3-5](readonly fields)
-@[6-15](constructor)
-@[17-18] 
+@[7-16](constructor)
+@[18-19] 
 
 NOTE:
 
