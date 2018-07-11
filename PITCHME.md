@@ -349,7 +349,7 @@ array[0].Increment();
 Console.WriteLine(array[0].Value); // value changed!
 ```
 
-@[1-13] (*Mutable* contains an integer field)
+@[1-13] (*Mutable* contains a private integer field)
 @[11-12] (*Increment()* mutates the value)
 @[15-17] (The value in the list is **not mutate** as index operator returns a copy)
 @[19-22] (Mutation has to be applied on the copy and then copied back to the list)
@@ -370,11 +370,11 @@ NOTE:
 
 @ul
 
-- Don't survive
+- Don't survive (popped from stack):
   + Local variables
   + this
-- Do survive
-  + Heap-allocated
+- Do survive:
+  + Heap-allocated variables
   + Passed-by-reference arguments
 
 @ulend
