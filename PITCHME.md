@@ -174,7 +174,7 @@ struct Angle
 }
 ```
 
-@[7-8] pass-by-reference
+@[7-8](pass-by-reference)
 
 
 NOTE:
@@ -197,7 +197,7 @@ struct Angle
 }
 ```
 
-@[7-8] readonly ref => in
+@[7-8](readonly ref => in)
 
 NOTE:
 
@@ -234,9 +234,9 @@ readonly struct Angle
 }
 ```
 
-@[1] readonly struct
-@[3-5] readonly fields
-@[6-15] constructor
+@[1](readonly struct)
+@[3-5](readonly fields)
+@[6-15](constructor)
 @[17-18] 
 
 NOTE:
