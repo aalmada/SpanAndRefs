@@ -223,7 +223,7 @@ NOTE:
 
 ```
 var angle = new Angle { Degrees = 90, Minutes = 30, Seconds = 0.0 };
-Console.WriteLine(Angle.ToDegrees(angle));
+Console.WriteLine(Angle.ToDegrees(in angle));
 ```
 
 @[2] (The use of 'in' is optional)
@@ -289,7 +289,7 @@ NOTE:
 
 [SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJAnApgQwCYHsB2ANgJ4QDOALigK4DG5EAgngOYFpIDeSEPUAzBHTZ8xCAEs89ACJpm6NKQSJe/QZlyESE+gFkJVcgqUqQAoRtG4qAIzYQAymhr4si7r3c9TjFmwAU2hBYsvKkADTikhAAtvqG4UE4NnakTi6kAJQQALwAfJ4qEH4ycmgKEXp4BuUOaXiuWdlFBSoAkMGlNS28rbFV8RAAPBAAbJAA/DFxChAAXBDkABYoOADuEHho6wwozFTRaJIA8gZHAGYAShgsaACiAB40aAAO5GL4fngYBzhnfn3VTIZCLdHitVLOeqkIajMAAOgmZDqrjmC2Waw2W0Yu32h3IJ3xl2uzDujxebw+Xx+fwh6QyGQKrQyxkKPAK3hgI0SyTQEAAKjgSqEAngfKxecS2I18spWRBJWg4UKytCANTy3yKyqAiAAelhCIg6oVcMckJR+r4Y3hYCUAF8kEgOQAmCAPb7POycdkCTlQAAsUGgAA4/FkClxEK0VAA3DAoDXinKY7aavwdULzACcYAiAPi8z4uaR5tI8xtzNBQazfiY4rhAuVCj8CvpLJ4DsQnaAA===)
 
----
++++
 
 ## Caller generated code
 
@@ -299,10 +299,6 @@ Console.WriteLine(Angle.ToDegrees(ref angle));
 ```
 
 @[1-2] (No defensive copies)
-
----
-
-
 
 ---
 
@@ -401,6 +397,29 @@ public static ref readonly Angle Max(in Angle left, in Angle right)
 NOTE: 
 
 [SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJAnApgQwCYHsB2ANgJ4QDOALigK4DG5EAgngOYFpIDeSEPUAzBHTZ8xCAEs89ACJpm6NKQSJe/QZlyESE+gFkJVcgqUqQAoRtG4qAIzYQAymhr4si7r3c9TjFmwAU2hBYsvKkADTikhAAtvqG4UE4NnakTi6kAJQQALwAfJ4qEH4ycmgKEXp4BuUOaXiuWdlFBSoAkMGlNS28rbFV8RAAPBAAbJAA/DFxChAAXBDkABYoOADuEHho6wwozFTRaJIA8gZHAGYAShgsaACiAB40aAAO5GL4fngYBzhnfn3VTIZCLdHitVLOeqkIajMAAOgmZDqrjmC2Waw2W0Yu32h3IJ3xl2uzDujxebw+Xx+fwh6QyGQKrQyxkKPAK3hgI0SyTQEAAKjgSqEAngfKxecS2I18spWRBJWg4UKytCANTy3yKyqAiAAelhCIg6oVcMckJR+r4Y3hYBZbNlXgEnLUZzUwk0YrsOgw9xFnt5bDO5AiEn9gjEzEW5GloMK6FdTHFcIFyoUfkD0YguX9ycFIRVfhQEajWUm8YgGdR5aLkfISnZAhwADc0Cgi8EoNBIAL7JQJMw/DGHYUACQAIg4qdIAF8AA0QDja+LTgDkC7N6WnAB0x2OlNOkEgOQAmCAPb7POycBudrkgAAsnYAHIOIAUuIhWiomxgUBrxdAOSYtsmp+B0oTzAAnGAEQAvE8x8DBSLmqQ8w2sySBfrwP5/gqp5NJsIHimB+YKFBSFwWRECIREtJQvM0AIhhw4mNAkF+ImbBwt6voKtAER4fSdoQAeiCiUAA==)
+
++++
+
+```
+public static ref Angle MaxBy(this Angle[] angles)
+{
+	if (angles.Length == 0)
+		throw new ArgumentException(nameof(angles));
+
+	ref var max = ref angles[0];
+	return ref GetMax(ref max, 1);
+
+	ref Angle GetMax(ref Angle m, int index) =>
+		ref (index == angles.Length) ?
+			ref m : 
+			ref Max(ref m, ref GetMax(ref angles[index], index + 1));
+
+	ref Angle Max(ref Angle left, ref Angle right) =>
+		ref Angle.ToDegrees(left) > Angle.ToDegrees(right) ? 
+			ref left : 
+			ref right;
+}
+```
 
 ---
 
