@@ -398,6 +398,10 @@ NOTE:
 
 [SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJAnApgQwCYHsB2ANgJ4QDOALigK4DG5EAgngOYFpIDeSEPUAzBHTZ8xCAEs89ACJpm6NKQSJe/QZlyESE+gFkJVcgqUqQAoRtG4qAIzYQAymhr4si7r3c9TjFmwAU2hBYsvKkADTikhAAtvqG4UE4NnakTi6kAJQQALwAfJ4qEH4ycmgKEXp4BuUOaXiuWdlFBSoAkMGlNS28rbFV8RAAPBAAbJAA/DFxChAAXBDkABYoOADuEHho6wwozFTRaJIA8gZHAGYAShgsaACiAB40aAAO5GL4fngYBzhnfn3VTIZCLdHitVLOeqkIajMAAOgmZDqrjmC2Waw2W0Yu32h3IJ3xl2uzDujxebw+Xx+fwh6QyGQKrQyxkKPAK3hgI0SyTQEAAKjgSqEAngfKxecS2I18spWRBJWg4UKytCANTy3yKyqAiAAelhCIg6oVcMckJR+r4Y3hYBZbNlXgEnLUZzUwk0YrsOgw9xFnt5bDO5AiEn9gjEzEW5GloMK6FdTHFcIFyoUfkD0YguX9ycFIRVfhQEajWUm8YgGdR5aLkfISnZAhwADc0Cgi8EoNBIAL7JQJMw/DGHYUACQAIg4qdIAF8AA0QDja+LTgDkC7N6WnAB0x2OlNOkEgOQAmCAPb7POycBudrkgAAsnYAHIOIAUuIhWiomxgUBrxdAOSYtsmp+B0oTzAAnGAEQAvE8x8DBSLmqQ8w2sySBfrwP5/gqp5NJsIHimB+YKFBSFwWRECIREtJQvM0AIhhw4mNAkF+ImbBwt6voKtAER4fSdoQAeiCiUAA==)
 
+---
+
+# ref locals
+
 +++
 
 ```
@@ -420,6 +424,12 @@ public static ref Angle MaxBy(this Angle[] angles)
 			ref right;
 }
 ```
+
+@[1] (Returns a reference to array item with the maximum value)
+@[5] (Keeps a reference to the first item of the array)
+@[6] (Iterates on the rest of the array and returns the reference to the item with the maximum value)
+@[8-11] (Recursive local function)
+@[13-16] (Returns a reference to the largest of two Angle)
 
 ---
 
