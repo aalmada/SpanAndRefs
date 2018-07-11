@@ -362,7 +362,7 @@ NOTE:
 
 ## ref returns
 
-### Can't be used on variables that don't survive after method return!
+### Can only be used on variables that survive scope exit!
 
 +++
 
@@ -370,14 +370,37 @@ NOTE:
 
 @ul
 
-- Don't survive (popped from stack):
+- **Can't** be used on:
   + Local variables
   + this
-- Do survive:
+- **Can** be used on:
   + Heap-allocated variables
   + Passed-by-reference arguments
 
 @ulend
+
++++
+
+```
+public static ref readonly Angle Max(in Angle left, in Angle right) =>
+    ref Angle.ToDegrees(left) > Angle.ToDegrees(right) ? 
+        ref left : ref right;
+
+public static ref readonly Angle Max(in Angle left, in Angle right)
+{
+    if (Angle.ToDegrees(left) > Angle.ToDegrees(right))
+        return ref left;
+
+    return ref right;
+}
+```
+
+@[1-3] (lambda-style syntax)
+@[5-11] (classic syntax)
+
+NOTE: 
+
+[SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJAnApgQwCYHsB2ANgJ4QDOALigK4DG5EAgngOYFpIDeSEPUAzBHTZ8xCAEs89ACJpm6NKQSJe/QZlyESE+gFkJVcgqUqQAoRtG4qAIzYQAymhr4si7r3c9TjFmwAU2hBYsvKkADTikhAAtvqG4UE4NnakTi6kAJQQALwAfJ4qEH4ycmgKEXp4BuUOaXiuWdlFBSoAkMGlNS28rbFV8RAAPBAAbJAA/DFxChAAXBDkABYoOADuEHho6wwozFTRaJIA8gZHAGYAShgsaACiAB40aAAO5GL4fngYBzhnfn3VTIZCLdHitVLOeqkIajMAAOgmZDqrjmC2Waw2W0Yu32h3IJ3xl2uzDujxebw+Xx+fwh6QyGQKrQyxkKPAK3hgI0SyTQEAAKjgSqEAngfKxecS2I18spWRBJWg4UKytCANTy3yKyqAiAAelhCIg6oVcMckJR+r4Y3hYBZbNlXgEnLUZzUwk0YrsOgw9xFnt5bDO5AiEn9gjEzEW5GloMK6FdTHFcIFyoUfkD0YguX9ycFIRVfhQEajWUm8YgGdR5aLkfISnZAhwADc0Cgi8EoNBIAL7JQJMw/DGHYUACQAIg4qdIAF8AA0QDja+LTgDkC7N6WnAB0x2OlNOkEgOQAmCAPb7POycBudrkgAAsnYAHIOIAUuIhWiomxgUBrxdAOSYtsmp+B0oTzAAnGAEQAvE8x8DBSLmqQ8w2sySBfrwP5/gqp5NJsIHimB+YKFBSFwWRECIREtJQvM0AIhhw4mNAkF+ImbBwt6voKtAER4fSdoQAeiCiUAA==)
 
 ---
 
