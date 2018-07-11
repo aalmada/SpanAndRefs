@@ -426,10 +426,28 @@ public static ref Angle MaxBy(this Angle[] angles)
 ```
 
 @[1] (Returns a reference to array item with the maximum value)
-@[5] (Keeps a reference to the first item of the array)
-@[6] (Iterates on the rest of the array and returns the reference to the item with the maximum value)
-@[8-11] (Recursive local function)
-@[13-16] (Returns a reference to the largest of two Angle)
+@[6] (Keeps a reference to the first item of the array)
+@[7] (Iterates on the rest of the array and returns the reference to the item with the maximum value)
+@[9-12] (Recursive local function)
+@[14-17] (Returns a reference to the largest of two Angle)
+
++++
+
+```
+var angles = new[] {
+	new Angle(degrees: 90, minutes: 30, seconds: 0.0),
+	new Angle(degrees: 90, minutes: 30, seconds: 1.0),
+	new Angle(degrees: 90, minutes: 30, seconds: 0.0),
+};
+
+ref var max = ref angles.MaxBy();
+max = new Angle(degrees: 1, minutes: 2, seconds: 3.0);
+
+foreach (var angle in angles)
+    Console.WriteLine(angle);
+```
+
+@[6-7] 
 
 ---
 
