@@ -63,6 +63,8 @@ Note:
 
 +++
 
+## Angle value type
+
 ```csharp
 struct Angle
 {
@@ -79,6 +81,8 @@ struct Angle
 @[7-8]
 
 +++
+
+## calls
 
 ```csharp
 public class Example 
@@ -153,6 +157,8 @@ Example.CallByReference()
 @[14-17]
 
 +++
+
+## benchmarks
 
 ```
           Method |      Mean |     Error |    StdDev | Scaled | ScaledSD |
