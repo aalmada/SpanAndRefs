@@ -14,14 +14,17 @@
 ## Safe memory optimizations in .NET
 @ul
 
-- Pass-by-Reference
+- ref readonly
+- ref returns
+- ref locals
 - Span&lt;T&gt;
+- Memory&lt;T&gt;
 
 @ulend
 
 ---
 
-## Pass-by-reference
+## ref readonly
 
 +++
 
@@ -183,9 +186,6 @@ Using pass-by-reference improves performance but usually means the value will be
 
 [SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoHBnYSAY2CQEEoBzAGwFMcBvHJFlAZiQEspSARWymFq08WbK3ZceSALLcIwEWIlwOAEwD2EAEZ0kAZVpENUNaOasLLVSlQA2JJp16AKhv6DheABRCAZuRUegCGQbQAlEgAvAB8VhJIoTS0AHQeQiJIANSJYSlyUAqZAPRIdggpyDlJdCmGxqZ4SKVs5RUIYgC+ODg2cABMSACiAB7BALYADnqM8X32KAAstgAc3pHxTNgAkBIAbsFgucnRSFC0AO6BJwxI6V6nAJwIADSy8opNUUhsrwZGJjMp3aSE6ygS1lQj28FGSKTc9xEvloARqEXC4JY3Ww2KAA==)
 
-+++
-
-
 
 +++
 
@@ -251,7 +251,55 @@ NOTE:
 
 No copy is made now!
 
+--
+
+## ref returns
+
 +++
+
+### ref returns
+- Available on CLR since first version
+- Now available on C#
+
++++
+
+```
+struct Mutable
+{
+    int value;
+
+    public Mutable(int value) => 
+        this.value = value;
+
+    public int Value =>
+        value;
+
+    public void Increment() => 
+        value++; 
+}
+
+var array = new Mutable[] { new Mutable(1) };
+array[0].Increment();   
+Console.WriteLine(array[0].Value); // value changed!
+
+var list = new List<Mutable> { new Mutable(1) };
+list[0].Increment();
+Console.WriteLine(list[0].Value); // value did not change!
+
+var item = list[0];
+item.Increment();
+list[0] = item;
+Console.WriteLine(list[0].Value); // value changed!        
+```
+
+@[1-13](Mutable contains an interger field)
+@[11-12](Increment() mutates the value)
+@[15-17](The value in the array is **mutated** as index operator returns a reference)
+@[19-21](The value in the list is **not mutate** as index operator returns a copy)
+@[23-26](Mutation has to be applied on the copy and then copied back to the list)
+
+NOTE:
+[SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoRLUAsW2OAzsJAMbBICyEwAhgEYA2ApjgN45J9IBLKDQBujVhHbFe/OAGY6DFhwAUQ0eMkBKJAF4AfEhn9+wABYDSAOjET2epLcnTsJ+YOFIAapvsHjJo6+Lm4KcARIAJJQlGDsALbswio6BkaugXxO7ADUOejpAL44OO5oAGwoAEz4AOzpPBl8ZaiV4fgAHCnpJo2ZWYxgSINgjACeDlDsAO6KTGzsANoAukhcSFOz9POqqDqFxP3DYKNjiwjLVtGxCUnAKQV8AW6oAJwqI+Pnlz52WgUAegBQTsSEoZkYUAA5uwACYAQhKTUCYiGrEsNF0GxmSAAMhiADzbZTsQzrTZzEkqPZIA7Pfjo8jfK4xOKJZL/enNN4qRnAZm/bSA4HZJCwgSwjYAexo4MhMMRyJMXKCQwEwASDj530O/XVCRZN3Z905SoZGO+Dn18V1mTQ721FysgvY/yQQJBkjBEOhcPhRwCxWwhSAA=)
 
 ---
 
