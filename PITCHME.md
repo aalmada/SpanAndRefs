@@ -14,17 +14,20 @@
 ## Safe memory optimizations in .NET
 @ul
 
-- ref readonly
-- ref returns
-- ref locals
-- Span&lt;T&gt;
-- Memory&lt;T&gt;
+- Passing by reference
+  + in
+  + readonly struct
+  + ref returns
+  + ref locals
+- Contiguous memory handling
+  + Span&lt;T&gt;
+  + Memory&lt;T&gt;
 
 @ulend
 
 ---
 
-## ref readonly
+## passing by reference
 
 +++
 
@@ -186,6 +189,9 @@ Using pass-by-reference improves performance but usually means the value will be
 
 [SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoHBnYSAY2CQEEoBzAGwFMcBvHJFlAZiQEspSARWymFq08WbK3ZceSALLcIwEWIlwOAEwD2EAEZ0kAZVpENUNaOasLLVSlQA2JJp16AKhv6DheABRCAZuRUegCGQbQAlEgAvAB8VhJIoTS0AHQeQiJIANSJYSlyUAqZAPRIdggpyDlJdCmGxqZ4SKVs5RUIYgC+ODg2cABMSACiAB7BALYADnqM8X32KAAstgAc3pHxTNgAkBIAbsFgucnRSFC0AO6BJwxI6V6nAJwIADSy8opNUUhsrwZGJjMp3aSE6ygS1lQj28FGSKTc9xEvloARqEXC4JY3Ww2KAA==)
 
+---
+
+## in - ref readonly arguments
 
 +++
 
@@ -205,7 +211,7 @@ struct Angle
 
 NOTE:
 
-'in' is new keyword that means 'readonly ref' => better performance and value can't be changed
+'in' is new keyword that means 'ref readonly' => better performance and value can't be changed
 
 But, a copy of the angle is created before the call to ToDegrees(). 
 
@@ -257,9 +263,13 @@ No copy is made now!
 
 +++
 
-### ref returns
-- Available on CLR since first version
-- Now available on C#
+## ref returns
+@ul[spaced-list-items]
+
+- Available on the CLR since first version!
+- **Now available to you on C#!**
+
+@ulend
 
 +++
 
@@ -294,12 +304,12 @@ Console.WriteLine(array[0].Value); // value changed!
 
 @[1-13] (*Mutable* contains an integer field)
 @[11-12] (*Increment()* mutates the value)
-@[15-17] (Mutation has to be applied on the copy and then copied back to the list)
-@[19-22] (The value in the array is **mutated** as index operator returns a reference)
-@[24-24] (The value in the list is **not mutate** as index operator returns a copy)
+@[15-17] (The value in the list is **not mutate** as index operator returns a copy)
+@[19-22] (Mutation has to be applied on the copy and then copied back to the list)
+@[24-24] (The value in the array is **mutated** as index operator returns a reference)
 
 NOTE:
-[SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoRLUAsW2OAzsJAMbBICyEwAhgEYA2ApjgN45J9IBLKDQBujVhHbFe/OAGY6DFhwAUQ0eMkBKJAF4AfEhn9+wABYDSAOjET2epLcnTsJ+YOFIAapvsHjJo6+Lm4KcARIAJJQlGDsALbswio6BkaugXxO7ADUOejpAL44OO5oAGwoAEz4AOzpPBl8ZaiV4fgAHCnpJo2ZWYxgSINgjACeDlDsAO6KTGzsANoAukhcSFOz9POqqDqFxP3DYKNjiwjLVtGxCUnAKQV8AW6oAJwqI+Pnlz52WgUAegBQTsSEoZkYUAA5uwACYAQhKTUCYiGrEsNF0GxmSAAMhiADzbZTsQzrTZzEkqPZIA7Pfjo8jfK4xOKJZL/enNN4qRnAZm/bSA4HZJCwgSwjYAexo4MhMMRyJMXKCQwEwASDj530O/XVCRZN3Z905SoZGO+Dn18V1mTQ721FysgvY/yQQJBkjBEOhcPhRwCxWwhSAA=)
+[SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoRLUAsW2OAzsJAMbBICyEwAhgEYA2ApjgN45J9IBLKDQBujVhHbFe/OAGY6DFhwAUQ0eMkBKJAF4AfEhn9+wABYDSAOjET2epLcnTsJ+YOFIAapvsHjJo6+Lm4KcARIAJJQlGDsALbswio6BkaugXxO7ADUOejpAL44OO5oAGwoAEz4AOzpPBl8ZaiV4fgAHCnpJo2ZWYxgSKyWNLpIUOwA7kgAMqMAPPRMbOyGXBPTiiuqqDqFxP3DowDaCAC6VtGxCUnAKYf9aACcKiPkZ5c+dloFAPR/IJ2JAAEwEIImAHsaJQzIwoABzdgAQhKTUCYiGAmACQc72An0emWxCSuMTiiWSvwCJnxnwcJPiRMCLzepwuVm+2n+gOySFh8KRIOR/TRR0xSEGYEYAE8HJMZstlOwTuckBsFdtlSo9kgDjT+FLZZ8yTdKfdfvwDc1UK8jTKTVz2JaAUDJPy4Yj2MLRejithCkA==)
 
 ---
 
