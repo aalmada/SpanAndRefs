@@ -130,7 +130,7 @@ instance void CallByReference () cil managed
 ```
 
 @[1-2,10-11]
-@[4-7, 13-16](ldfld - Pushes the **value of field** onto the stack.<br/>ldflda - Pushes the **address of field** onto the stack.)
+@[4-7, 13-16] (ldfld - Pushes the **value of field** onto the stack.<br/>ldflda - Pushes the **address of field** onto the stack.)
 
 +++
 
@@ -180,7 +180,7 @@ struct Angle
 }
 ```
 
-@[7-8](pass-by-reference)
+@[7-8] (pass-by-reference)
 
 
 NOTE:
@@ -207,7 +207,7 @@ struct Angle
 }
 ```
 
-@[7-8](in = ref readonly)
+@[7-8] (in = ref readonly)
 
 NOTE:
 
@@ -244,9 +244,9 @@ readonly struct Angle
 }
 ```
 
-@[1](readonly struct)
-@[3-5](readonly fields)
-@[7-16](constructor)
+@[1] (readonly struct)
+@[3-5] (readonly fields)
+@[7-16] (constructor)
 @[18-19] 
 
 NOTE:
@@ -306,7 +306,7 @@ Console.WriteLine(array[0].Value); // value changed!
 @[11-12] (*Increment()* mutates the value)
 @[15-17] (The value in the list is **not mutate** as index operator returns a copy)
 @[19-22] (Mutation has to be applied on the copy and then copied back to the list)
-@[24-24] (The value in the array is **mutated** as index operator returns a reference)
+@[24-26] (The value in the array is **mutated** as index operator returns a reference)
 
 NOTE:
 [SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoRLUAsW2OAzsJAMbBICyEwAhgEYA2ApjgN45J9IBLKDQBujVhHbFe/OAGY6DFhwAUQ0eMkBKJAF4AfEhn9+wABYDSAOjET2epLcnTsJ+YOFIAapvsHjJo6+Lm4KcARIAJJQlGDsALbswio6BkaugXxO7ADUOejpAL44OO5oAGwoAEz4AOzpPBl8ZaiV4fgAHCnpJo2ZWYxgSKyWNLpIUOwA7kgAMqMAPPRMbOyGXBPTiiuqqDqFxP3DowDaCAC6VtGxCUnAKYf9aACcKiPkZ5c+dloFAPR/IJ2JAAEwEIImAHsaJQzIwoABzdgAQhKTUCYiGAmACQc72An0emWxCSuMTiiWSvwCJnxnwcJPiRMCLzepwuVm+2n+gOySFh8KRIOR/TRR0xSEGYEYAE8HJMZstlOwTuckBsFdtlSo9kgDjT+FLZZ8yTdKfdfvwDc1UK8jTKTVz2JaAUDJPy4Yj2MLRejithCkA==)
