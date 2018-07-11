@@ -180,8 +180,8 @@ struct Angle
 }
 ```
 
-@[7-8] (pass-by-reference)
-
+@[7-8] (Pass argument by reference)
+@[8] (No mutation are performed)
 
 NOTE:
 
@@ -207,17 +207,41 @@ struct Angle
 }
 ```
 
-@[7-8] (in = ref readonly)
+@[7-8] ('in' = 'ref readonly')
 
 NOTE:
 
-'in' is new keyword that means 'ref readonly' => better performance and value can't be changed
+'in' is new keyword that means 'ref readonly' => no muttations allowed
 
-But, a copy of the angle is created before the call to ToDegrees(). 
+**Better performance?**
+
++++
+
+```
+var angle = new Angle { Degrees = 90, Minutes = 30, Seconds = 0.0 };
+Console.WriteLine(Angle.ToDegrees(angle));
+```
+
+@[2] (The use of 'in' is optional)
+
++++
+
+```
+Angle angle = default(Angle);
+angle.Degrees = 90;
+angle.Minutes = 30;
+angle.Seconds = 0.0;
+Angle angle2 = angle;
+Console.WriteLine(Angle.ToDegrees(ref angle2));
+```
+
+@[5] (A defensive copy is performed)
+
+NOTE:
+
+**Defensive copies are performed every time an instance is declared as readonly but a method is called that may mutate it!**
 
 [SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJBnALgJwK4GM0QEEA7AcwBsBTJAbyQnqgGYIBLI/AEQpIwopQSIGTVuwgBZNljT9BwkMwAmAeywAjShADKFHMqKKBdBsfoKo0AGwQV6zQBVlXHnxQAKNoVKaAht4oAlBAAvAB8psIQfuQUAHTOvPwQANRR/rGSRNJJAPQQlmCxkKnRlLE6egYoEHmMBYVgggC+SEjmIABMEACiAB4+ALYADpo0Ee1WUAAsFgAcbkERtIgAkMIAbj4YaTEhEEQUAO5eu9QQCa57AJxgADQSUjLVwRCMd9q6+oZ7DRBNcpEzNArm5iDFYo4Lvw3KVAgEAfQWogkUA=)
-
-The compiler has no guarantees that the value won't change between reads of the fields.
 
 +++
 
@@ -244,10 +268,10 @@ readonly struct Angle
 }
 ```
 
-@[1] (readonly struct)
-@[3-5] (readonly fields)
-@[7-16] (constructor)
-@[18-19] 
+@[1] ('readonly struct')
+@[3-5] (Immutable => readonly fields)
+@[7-16] (Constructor required to initialize)
+@[18-19] (No changes!)
 
 NOTE:
 
@@ -317,9 +341,13 @@ NOTE:
 
 ---
 
+#Thank you!
+
 @fa[twitter] [@AntaoAlmada](https://twitter.com/AntaoAlmada) <br/>
 
 @fa[medium] [@antao.almada](https://medium.com/@antao.almada) <br/>
+
+@fa[github] [aalmada](https://github.com/aalmada) <br/>
 
 ---
 
