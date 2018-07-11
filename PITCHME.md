@@ -148,6 +148,107 @@ Example.CallByReference()
     L0008: ret
 ```
 
+@[1-12]
+@[14-17]
+
++++
+
+```
+          Method |      Mean |     Error |    StdDev | Scaled | ScaledSD |
+---------------- |----------:|----------:|----------:|-------:|---------:|
+     CallByValue | 0.0489 ns | 0.0115 ns | 0.0102 ns |   1.00 |     0.00 |
+ CallByReference | 0.0164 ns | 0.0062 ns | 0.0049 ns |   0.36 |     0.15 |
+```
+
++++
+
+```
+struct Angle
+{
+    public int Degrees;
+    public int Minutes;
+    public double Seconds;
+    
+    public static double ToDegrees(ref Angle angle) =>
+        angle.Degrees + angle.Minutes / 60.0 + angle.Seconds / 3600.0;
+}
+```
+
+@[7-8] pass-by-reference
+
+
+NOTE:
+
+Using pass-by-reference improves performance but usually means the value will be changed, which it's not doing!
+
+[SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoHBnYSAY2CQEEoBzAGwFMcBvHJFlAZiQEspSARWymFq08WbK3ZceSALLcIwEWIlwOAEwD2EAEZ0kAZVpENUNaOasLLVSlQA2JJp16AKhv6DheABRCAZuRUegCGQbQAlEgAvAB8VhJIoTS0AHQeQiJIANSJYSlyUAqZAPRIdggpyDlJdCmGxqZ4SKVs5RUIYgC+ODg2cABMSACiAB7BALYADnqM8X32KAAstgAc3pHxTNgAkBIAbsFgucnRSFC0AO6BJwxI6V6nAJwIADSy8opNUUhsrwZGJjMp3aSE6ygS1lQj28FGSKTc9xEvloARqEXC4JY3Ww2KAA==)
+
++++
+
+```
+struct Angle
+{
+    public int Degrees;
+    public int Minutes;
+    public double Seconds;
+    
+    public static double ToDegrees(in Angle angle) =>
+        angle.Degrees + angle.Minutes / 60.0 + angle.Seconds / 3600.0;
+}
+```
+
+@[7-8] readonly ref => in
+
+NOTE:
+
+'in' is new keyword that means 'readonly ref' => better performance and value can't be changed
+
+But, a copy of the angle is created before the call to ToDegrees(). 
+
+[SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJBnALgJwK4GM0QEEA7AcwBsBTJAbyQnqgGYIBLI/AEQpIwopQSIGTVuwgBZNljT9BwkMwAmAeywAjShADKFHMqKKBdBsfoKo0AGwQV6zQBVlXHnxQAKNoVKaAht4oAlBAAvAB8psIQfuQUAHTOvPwQANRR/rGSRNJJAPQQlmCxkKnRlLE6egYoEHmMBYVgggC+SEjmIABMEACiAB4+ALYADpo0Ee1WUAAsFgAcbkERtIgAkMIAbj4YaTEhEEQUAO5eu9QQCa57AJxgADQSUjLVwRCMd9q6+oZ7DRBNcpEzNArm5iDFYo4Lvw3KVAgEAfQWogkUA=)
+
+The compiler has no guarantees that the value won't change between reads of the fields.
+
++++
+
+```
+readonly struct Angle
+{
+    public readonly int Degrees;
+    public readonly int Minutes;
+    public readonly double Seconds;
+    
+    public Angle(int degrees, int minutes, double seconds) =>
+        (Degrees, Minutes, Seconds) = (
+        	degrees, 
+        	minutes < 60 ? 
+        		minutes : 
+        		throw new ArgumentOutOfRangeException(nameof(minutes)), 
+        	seconds < 60.0 ? 
+        		seconds : 
+        		throw new ArgumentOutOfRangeException(nameof(seconds))
+    	);
+        
+    public static double ToDegrees(in Angle angle) =>
+        angle.Degrees + angle.Minutes / 60.0 + angle.Seconds / 3600.0;
+}
+```
+
+@[1] readonly struct
+@[3-5] readonly fields
+@[6-15] constructor
+@[17-18] 
+
+NOTE:
+
+´readonly struct' guarantees that the struct is immutable. The value can only be set by the constructor.
+
+[SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJAnApgQwCYHsB2ANgJ4QDOALigK4DG5EAgngOYFpIDeSEPUAzBHTZ8xCAEs89ACJpm6NKQSJe/QZlyESE+gFkJVcgqUqQAoRtG4qAIzYQAymhr4si7r3c9TjFmwAU2hBYsvKkADTikhAAtvqG4UE4NnakTi6kAJQQALwAfJ4qEH4ycmgKEXp4BuUOaXiuWdlFBSoAkMGlNS28rbFV8RAAPBAAbJAA/DFxChAAXBDkABYoOADuEHho6wwozFTRaJIA8gZHAGYAShgsaACiAB40aAAO5GL4fngYBzhnfn3VTIZCLdHitVLOeqkIajMAAOgmZDqrjmC2Waw2W0Yu32h3IJ3xl2uzDujxebw+Xx+fwh6QyGQKrQyxkKPAK3hgI0SyTQEAAKjgSqEAngfKxecS2I18spWRBJWg4UKytCANTy3yKyqAiAAelhCIg6oVcMckJR+r4Y3hYCUAF8kEgOQAmCAPb7POycdkCTlQAAsUGgAA4/FkClxEK0VAA3DAoDXinKY7aavwdULzACcYAiAPi8z4uaR5tI8xtzNBQazfiY4rhAuVCj8CvpLJ4DsQnaAA===)
+
+No copy is made now!
+
++++
+
 ---
 
 ## Span <T>
