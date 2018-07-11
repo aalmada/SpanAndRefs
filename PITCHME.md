@@ -411,25 +411,23 @@ public static ref Angle MaxBy(this Angle[] angles)
 		throw new ArgumentException(nameof(angles));
 
 	ref var max = ref angles[0];
-	return ref GetMax(ref max, 1);
+	for (var index = 1; index < angles.Length; index++)
+	{
+		ref var current = ref angles[index];
+		if (Angle.ToDegrees(current) > Angle.ToDegrees(max))
+				max = ref current;
+	}
 
-	ref Angle GetMax(ref Angle m, int index) =>
-		ref (index == angles.Length) ?
-			ref m : 
-			ref Max(ref m, ref GetMax(ref angles[index], index + 1));
-
-	ref Angle Max(ref Angle left, ref Angle right) =>
-		ref Angle.ToDegrees(left) > Angle.ToDegrees(right) ? 
-			ref left : 
-			ref right;
+	return ref max;
 }
 ```
 
-@[1] (Returns a reference to array item with the maximum value)
+@[1] (Returns a reference to the array item with the maximum value)
 @[6] (Keeps a reference to the first item of the array)
-@[7] (Iterates on the rest of the array and returns the reference to the item with the maximum value)
-@[9-12] (Recursive local function)
-@[14-17] (Returns a reference to the largest of two Angle)
+@[7-12] (Iterates on the rest of the array)
+@[9] (Keeps a reference to the current item of the array)
+@[10-11] (Keep a reference to the largest value of the two references)
+@[14] (Return a reference to the item with the largest value)
 
 +++
 
