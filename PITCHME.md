@@ -449,18 +449,21 @@ var angles = new[] {
 	new Angle(degrees: 90, minutes: 30, seconds: 0.0),
 };
 
-ref var max = ref angles.MaxBy();
-max = new Angle(degrees: 1, minutes: 2, seconds: 3.0);
+angles.MaxBy() = new Angle(degrees: 1, minutes: 2, seconds: 3.0);
 
 foreach (var angle in angles)
     Console.WriteLine(angle);
 ```
 
-@[6-7] 
+@[7] (Assigns a new value to the array item that had the largest value)
 
 ---
 
 # Span <T>
+
++++
+
+TODO
 
 ---
 
