@@ -371,12 +371,14 @@ NOTE:
 
 - **Can't** be used on:
   + Local variables
-  + this
+  + 'this'
 - **Can** be used on:
   + Heap-allocated variables
   + Passed-by-reference arguments
 
 +++
+
+## Max
 
 ```
 public static ref readonly Angle Max(in Angle left, in Angle right) =>
@@ -409,6 +411,8 @@ Allow storing references as local variables
 
 +++
 
+## MaxBy
+
 ```
 public static ref Angle MaxBy(this Angle[] angles)
 {
@@ -435,6 +439,8 @@ public static ref Angle MaxBy(this Angle[] angles)
 @[14] (Return a reference to the item with the largest value)
 
 +++
+
+## MaxBy
 
 ```
 var angles = new[] {
