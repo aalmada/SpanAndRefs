@@ -1,6 +1,6 @@
 @title[Span&lt;T&gt; and Refs]
 
-## Span&lt;T&gt; and Refs 
+# Span&lt;T&gt; and Refs 
 
 ### *Safe memory optimizations in .NET*
 
@@ -27,7 +27,7 @@
 
 ---
 
-## passing by reference
+# Passing by reference
 
 +++
 
@@ -191,11 +191,11 @@ Using pass-by-reference improves performance but usually means the value will be
 
 ---
 
-## in
+# in
 
 +++
 
-### Callee
+## Callee
 
 ```
 struct Angle
@@ -219,7 +219,7 @@ NOTE:
 
 +++
 
-### Caller
+## Caller
 
 ```
 var angle = new Angle { Degrees = 90, Minutes = 30, Seconds = 0.0 };
@@ -251,7 +251,7 @@ NOTE:
 
 ---
 
-## readonly struct
+# readonly struct
 
 +++
 
@@ -291,7 +291,7 @@ NOTE:
 
 ---
 
-### Caller generated code
+## Caller generated code
 
 ```
 Angle angle = new Angle(90, 30, 0.0);
@@ -306,7 +306,7 @@ Console.WriteLine(Angle.ToDegrees(ref angle));
 
 ---
 
-## ref returns
+# ref returns
 
 +++
 
@@ -381,7 +381,7 @@ NOTE:
 
 ---
 
-## Span <T>
+# Span <T>
 
 ---
 
