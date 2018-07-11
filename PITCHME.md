@@ -63,7 +63,7 @@ Note:
 
 +++
 
-## Angle value type
+## DMS angle value type
 
 ```csharp
 struct Angle
@@ -79,6 +79,10 @@ struct Angle
 
 @[3-5]
 @[7-8]
+
+NOTE:
+
+Size of structure is 128 bits => 16 bytes.
 
 +++
 
