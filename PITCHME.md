@@ -69,8 +69,9 @@ Note:
 
 ## Value over Reference Types
 
-- Smaller memory footprint
-- Better performance on interface method calls
+- Smaller memory footprint.
+- Less GC overhead.
+- Better performance on interface method calls.
 
 +++
 
