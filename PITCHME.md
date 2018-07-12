@@ -478,14 +478,6 @@ Extension method not possible on *IEnumerable* or *IList* as they don't return r
 
 # Span &lt;T&gt; and Memory&lt;T&gt;
 
-+++
-
-## Span &lt;T&gt; and Memory&lt;T&gt;
-
-- Represents contiguous regions of arbitrary memory.
-- Performance characteristics on par with arrays.
-- APIs similar to the arrays.
-- Can point to either managed or native memory, or to memory allocated on the stack.
 
 +++
 
@@ -499,11 +491,9 @@ var str2 = str1.Substring(6, 5);
 Console.WriteLine(str2);
 ```
 
-@[3] (Returns a new string)
-
 NOTE: 
 
-Imagine we want to output a segment of string...
+Imagine that we have a string and want to output just a portion...
 
 [SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoHcDMKqAbCgExEDsSOA3jkoyoWqXACxEAcAFAJQ1sTJPSHCmANwCGYJAGdgYVEgC8SAEQAJAKYAbXQHskAdQNhdAEwCE6rGPGCHjabIVgKat6gB0AZQgARmgIPMQANEgArHx2To5OaACcPG5kMQxMAL44mUA==)
 
@@ -514,18 +504,25 @@ Imagine we want to output a segment of string...
 NOTE:
 
 - Substring:
-  + allocates a new array, 
-  + copies elements
-  + returns a reference to it.
+  + Memory allocation!
+  + Memory copy!
+  + More garbage collection!
 - Strings are immutable.
-- The Substring is also immutables
+- The substring is also immutable.
 - Why do I need to copy just to access a portion??? 
 
 +++
 
 ![Span](Span.png)
 
-NOTE:
++++
+
+## Span &lt;T&gt; and Memory&lt;T&gt;
+
+- Represents contiguous regions of arbitrary memory.
+- Performance characteristics on par with arrays.
+- APIs similar to the arrays.
+- Can point to either managed or native memory, or to memory allocated on the stack.
 
 ---
 
