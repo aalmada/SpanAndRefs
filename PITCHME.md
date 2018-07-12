@@ -584,11 +584,67 @@ for (int index = 0; index < buffer.Length; index++)
 ```
 
 @[1-2] (Span&lt;T&gt; supports write operations.)
-@[3-4] (Index operator returns a reference to the item.)
+@[4-5] (Index operator returns a reference to the item.)
 
 NOTE: 
 
 [SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJIDMVoDYoCYMHYkBvJCMqdGbEAFgwA4AKASglPJMXO4gGUAHAIYA7ADwBLYQBcAfBABGAVwBmygKYAnCAF4IwtQHcA2gF0IRCGAA0EaDZw3UNmjYCsNzDfw36NgJwQAL4IyFw8ZEqqmkaoZrpgIezhGmrKEJJS6VJqALY6EClpkeoaRq4mIeFk4tl58SEAkA1JPMoA9lqMGenCACZqAB75CT39Q6IKKiUAdAAyasIA5lIAFrCjgwDUm8wt3A0wfozF0ZJjJsyV5IFIgUA===)
+
++++
+
+```
+public long Sum()
+{
+    var itemSize = Unsafe.SizeOf<Foo>();
+
+    Span<Foo> buffer = new Foo[100]; // alloc items buffer
+    var rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer); // cast items buffer to bytes buffer (no copies)
+
+    var bytesRead = stream.Read(rawBuffer);
+    var sum = 0L;
+    while (bytesRead > 0)
+    {
+        var itemsRead = bytesRead / itemSize;
+        foreach (var foo in buffer.Slice(0, itemsRead)) // iterate through the item buffer
+            sum += foo.Integer;
+        bytesRead = stream.Read(rawBuffer);
+    }
+    return sum;
+}
+```
+
+@[3] (*Unsafe.SizeOf&lt;Foo&gt;()* gets the size of Foo in bytes.)
+@[5] (Buffer allocation into a *Span&lt;Foo&gt;*)
+@[6] (Masking of the buffer as *Span&lt;byte&gt;*.<br/>Array cast with no copies.)
+@[8, 15] (Read stream into the *Span&lt;byte&gt;*)
+@[13-14] (Read items from the *Span&lt;Foo&gt;*)
+
++++
+
+## ref struct
+
+```
+namespace System
+{
+    public readonly ref struct Span<T>
+    {
+		readonly Pinnable<T> _pinnable;
+        readonly IntPtr _byteOffset;
+        readonly int _length;
+    }
+}
+```
+
+@[3] ('ref struct' => struct can only be allocated in the stack.)
+@[5-7] (Size of the struct prevents copy as atomic operation.)
+
++++
+
+## Span &lt;T&gt; and Memory&lt;T&gt; give support to other performance features
+
+- System.Buffers.ArrayPool
+- System.Buffers.Text.Utf8Parser
+- System.IO.Pipelines
 
 ---
 
