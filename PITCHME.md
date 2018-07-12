@@ -407,8 +407,8 @@ public static ref readonly Angle Max(in Angle left, in Angle right)
 }
 ```
 
-@[1-3] (lambda-style syntax)
-@[5-11] (classic syntax)
+@[1-4] (lambda-style syntax)
+@[6-12] (classic syntax)
 
 NOTE: 
 
