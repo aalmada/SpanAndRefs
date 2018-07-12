@@ -582,6 +582,7 @@ for (int index = 0; index < buffer.Length; index++)
 	Console.WriteLine(buffer[index]);
 ```
 
+@[1] (Implicit conversion of T[] to ReadOnlySpan&lt;T&gt;.)
 @[1-2] (Span&lt;T&gt; supports write operations.)
 @[3-4] (Index operator returns a reference to the item.)
 
