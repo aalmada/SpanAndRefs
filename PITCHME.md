@@ -395,7 +395,8 @@ NOTE:
 ```
 public static ref readonly Angle Max(in Angle left, in Angle right) =>
     ref Angle.ToDegrees(left) > Angle.ToDegrees(right) ? 
-        ref left : ref right;
+        ref left : 
+        ref right;
 
 public static ref readonly Angle Max(in Angle left, in Angle right)
 {
