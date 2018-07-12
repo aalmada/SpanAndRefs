@@ -1,3 +1,5 @@
 published : false
 charts : true
+background: net.svg
+background-opacity : 75
 theme-override : custom.css
