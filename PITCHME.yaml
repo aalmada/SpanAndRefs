@@ -1,4 +1,5 @@
 published : false
 charts : true
-logo: net.png
+background: net.png
+background-opacity : 75
 theme-override : custom.css
