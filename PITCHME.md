@@ -24,6 +24,10 @@
 
 NOTE:
 
+This presentation focus new features made available with C# 7 and .NET Core 2.1.
+
+All these can significantly improve performance both CPU and memory.
+
 "Safe" because some of these optimizations where possible but using pointers and the keyword 'unsafe'.
 
 ---
@@ -60,6 +64,13 @@ Note:
 
 - Allocated on the stack **is an advantage**.
 - Arguments passed by value **may be a disadvange**.
+
++++
+
+## Value over Reference Types
+
+- Smaller memory footprint
+- Better performance on interface method calls
 
 +++
 
@@ -478,10 +489,13 @@ TODO
 ---
 
 ### References
+- [Smallest .Net ref type is 12 bytes (or why you should consider using value types)](https://theburningmonk.com/2015/07/smallest-net-ref-type-is-12-bytes-or-why-you-should-consider-using-value-types/) by Yan Cui
+- [Value Types vs Reference Types](http://adamsitnik.com/Value-Types-vs-Reference-Types/) by Adam Sitnik
 - [Readonly references](https://github.com/dotnet/csharplang/blob/master/proposals/csharp-7.2/readonly-ref.md) (proposal)
 - [‘in’ will make your code slower](http://faithlife.codes/blog/2017/12/in-will-make-your-code-slower/) by Bradley Grainger
 - [Performance traps of ref locals and ref returns in C#](https://blogs.msdn.microsoft.com/seteplia/2018/04/11/performance-traps-of-ref-locals-and-ref-returns-in-c/) by Sergey Teplyakov
 - [Span&lt;T&gt;](https://github.com/dotnet/coreclr/issues/5851) (proposal)
+- [Span](http://adamsitnik.com/Span/) by Adam Sitnik
 - [How to use Span<T> and Memory<T>](https://medium.com/@antao.almada/how-to-use-span-t-and-memory-t-c0b126aae652) by Antão Almada
 - [P/Invoking using Span<T>](https://medium.com/@antao.almada/p-invoking-using-span-t-a398b86f95d3) by Antão Almada
 - [Slicing managed arrays using Span<T>](https://medium.com/@antao.almada/slicing-managed-arrays-ae4f412a5d9e) by Antão Almada
