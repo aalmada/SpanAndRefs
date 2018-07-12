@@ -476,11 +476,42 @@ Extension method not possible on *IEnumerable* or *IList* as they don't return r
 
 ---
 
-# Span <T>
+# Span &lt;T&gt; and Memory&lt;T&gt;
 
 +++
 
-TODO
+## Span &lt;T&gt; and Memory&lt;T&gt;
+
+- Represents contiguous regions of arbitrary memory.
+- Performance characteristics on par with arrays.
+- APIs similar to the arrays.
+- Can point to either managed or native memory, or to memory allocated on the stack.
+
++++
+
+## String.Substring()
+
+```
+var str1 = "Hello World!";
+        
+var str2 = str1.Substring(6, 5);
+        
+Console.WriteLine(str2);
+```
+
+@[3] (Returns a new string)
+
+NOTE: 
+
+Imagine we want to output a segment of string...
+
+[SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoHcDMKqAbCgExEDsSOA3jkoyoWqXACxEAcAFAJQ1sTJPSHCmANwCGYJAGdgYVEgC8SAEQAJAKYAbXQHskAdQNhdAEwCE6rGPGCHjabIVgKat6gB0AZQgARmgIPMQANEgArHx2To5OaACcPG5kMQxMAL44mUA==)
+
++++
+
+### Substring
+
+![Substring](Substring.png)
 
 ---
 
@@ -505,7 +536,7 @@ TODO
 +++
 
 ### References
-- [Span&lt;T&gt;](https://github.com/dotnet/coreclr/issues/5851) (proposal)
+- [Span&lt;T&gt;](https://github.com/dotnet/corefxlab/blob/master/docs/specs/span.md) (proposal)
 - [Span](http://adamsitnik.com/Span/) by Adam Sitnik
 - [How to use Span<T> and Memory<T>](https://medium.com/@antao.almada/how-to-use-span-t-and-memory-t-c0b126aae652) by Antão Almada
 - [P/Invoking using Span<T>](https://medium.com/@antao.almada/p-invoking-using-span-t-a398b86f95d3) by Antão Almada
