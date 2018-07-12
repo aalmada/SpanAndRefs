@@ -519,10 +519,75 @@ NOTE:
 
 ## Span &lt;T&gt; and Memory&lt;T&gt;
 
-- Represents contiguous regions of arbitrary memory.
+- View into any arbitrary contiguous block of memory with no-copy semantics.
 - Performance characteristics on par with arrays.
 - APIs similar to the arrays.
-- Can point to either managed or native memory, or to memory allocated on the stack.
+- Can point to managed, stack or native memory.
+
++++
+
+## View into any arbitrary contiguous block of memory
+
+```
+ReadOnlySpan<char> str1 = "Hello World!";
+
+ReadOnlySpan<char> str2 = str1.Slice(6, 5);
+
+Console.WriteLine(str2.ToArray());
+```
+
+@[1] (Implicit conversion of string to ReadOnlySpan&lt;char&gt;. *AsSpan()* can be called explicitly.)
+@[3] (*Slice()* returns a new ReadOnlySpan&lt;char&gt; for the same block of memory.)
+@[5] (Use *ToString()* or *ToArray()* for backward compatibility.)
+
+NOTE:
+
+[SharpLab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgBgARwIwG4CwAoHcDMKqAbCgExEDsOA3jkgyoWqXACxEAcAFAJRL1GdbI1FIASgFMAhgBMA8lAA2ATwDKAB2lQAPAGMAFtLAA+JAGdgYVEgC8SAEQAJSUqUB7JAHV3YJbIBCBwA6AEFzTW0+LFwRMQYpOUVVSN1DYzNLMAp7LNRgtSUASz1JbmIAGiQAVl4YwXi0AE5uLLJggBV3ULAwaRU+OoakAF8cEaA)
+
++++
+
+## View into any arbitrary contiguous block of memory
+
+```
+ReadOnlySpan<int> buffer = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+ReadOnlySpan<int> slice = buffer.Slice(2, 3);
+        
+for(int index = 0; index < buffer.Length; index++)
+	Console.WriteLine(slice[index]);            
+        
+foreach(int item in slice)
+	Console.WriteLine(item);
+```
+
+@[5-6] (Supports index operator read.)
+@[8-9] (Supports enumeration.)
+
+NOTE:
+
+[SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJIDMVoDYoCYMHYkBvJCMqdGbEAFgwA4AKASglPJMQEguAlAUwCGAEwDyAOwA2ATwDKAB0HiAPAEtxAFwB8EAEYBXAGaH+AJwgBeCOP4B3ANoBdCEQhgANBGiecn1J5pPAFZPTE98T3pPAE4IAF8EZG4+ITEpOUUVdW0IAGdJVQBjfks9IxNTADpZAuLGXwhUZkTyVrZENvJDAHtTRmyIdWF+AA9SsFhB8WGx5TLjM0qAGX5xAHMNAAtJodGAaj3mdjIeGGjGfKL+e12Rx2bOzuO2pB4e0yFCzf7NQY1+AC2UzytX4Rw65FO0HOqn+AOazziSDiQA)
+
++++
+
+## APIs similar to the arrays
+
+```
+Span<int> buffer = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+buffer[3] = 0;
+
+ref int item = ref buffer[5];
+item = 0;
+		
+for (int index = 0; index < buffer.Length; index++)
+	Console.WriteLine(buffer[index]);
+```
+
+@[1-2] (Span&lt;T&gt; supports write operations.)
+@[3-4] (Index operator returns a reference to the item.)
+
+NOTE: 
+
+[SharpLab.io](https://sharplab.io/#v2:D4AQDABCCMDcCwAoJIDMVoDYoCYMHYkBvJCMqdGbEAFgwA4AKASglPJMXO4gGUAHAIYA7ADwBLYQBcAfBABGAVwBmygKYAnCAF4IwtQHcA2gF0IRCGAA0EaDZw3UNmjYCsNzDfw36NgJwQAL4IyFw8ZEqqmkaoZrpgIezhGmrKEJJS6VJqALY6EClpkeoaRq4mIeFk4tl58SEAkA1JPMoA9lqMGenCACZqAB75CT39Q6IKKiUAdAAyasIA5lIAFrCjgwDUm8wt3A0wfozF0ZJjJsyV5IFIgUA===)
 
 ---
 
@@ -548,6 +613,7 @@ NOTE:
 
 ### References
 - [Span&lt;T&gt;](https://github.com/dotnet/corefxlab/blob/master/docs/specs/span.md) (proposal)
+- [C# 7.2: Understanding Span](https://channel9.msdn.com/Events/Connect/2017/T125) by Jared Parsons
 - [Span](http://adamsitnik.com/Span/) by Adam Sitnik
 - [How to use Span<T> and Memory<T>](https://medium.com/@antao.almada/how-to-use-span-t-and-memory-t-c0b126aae652) by Antão Almada
 - [P/Invoking using Span<T>](https://medium.com/@antao.almada/p-invoking-using-span-t-a398b86f95d3) by Antão Almada
