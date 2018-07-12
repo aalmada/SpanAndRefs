@@ -470,6 +470,10 @@ foreach (var angle in angles)
 
 @[7] (Assigns a new value to the array item that had the largest value)
 
+NOTE:
+
+Extension method not possible on *IEnumerable* or *IList* as they don't return references (yet?)
+
 ---
 
 # Span <T>
