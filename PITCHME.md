@@ -509,9 +509,23 @@ Imagine we want to output a segment of string...
 
 +++
 
-### Substring
-
 ![Substring](Substring.png)
+
+NOTE:
+
+- Substring:
+  + allocates a new array, 
+  + copies elements
+  + returns a reference to it.
+- Strings are immutable.
+- The Substring is also immutables
+- Why do I need to copy just to access a portion??? 
+
++++
+
+![Span](Span.png)
+
+NOTE:
 
 ---
 
