@@ -1,6 +1,3 @@
 published : false
 charts : true
-background: net.png
-background-opacity : 20
-background-size : 75%
 theme-override : custom.css
