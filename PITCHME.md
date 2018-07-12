@@ -620,6 +620,8 @@ namespace System
   + In *System.Memory* package
   + Included in .NET Core
 
++++
+
 ## Unsafe and MemoryMarshal
 
 ```
