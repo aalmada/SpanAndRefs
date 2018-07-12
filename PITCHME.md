@@ -592,36 +592,7 @@ NOTE:
 
 +++
 
-```
-public long Sum()
-{
-    var itemSize = Unsafe.SizeOf<Foo>();
-
-    Span<Foo> buffer = new Foo[100]; // alloc items buffer
-    var rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer); // cast items buffer to bytes buffer (no copies)
-
-    var bytesRead = stream.Read(rawBuffer);
-    var sum = 0L;
-    while (bytesRead > 0)
-    {
-        var itemsRead = bytesRead / itemSize;
-        foreach (var foo in buffer.Slice(0, itemsRead)) // iterate through the item buffer
-            sum += foo.Integer;
-        bytesRead = stream.Read(rawBuffer);
-    }
-    return sum;
-}
-```
-
-@[3] (*Unsafe.SizeOf&lt;Foo&gt;()* gets the size of Foo in bytes.)
-@[5] (Buffer allocation into a *Span&lt;Foo&gt;*)
-@[6] (Masking of the buffer as *Span&lt;byte&gt;*.<br/>Array cast with no copies.)
-@[8, 15] (Read stream into the *Span&lt;byte&gt;*)
-@[13-14] (Read items from the *Span&lt;Foo&gt;*)
-
-+++
-
-## ref struct
+## Span limitations
 
 ```
 namespace System
@@ -635,10 +606,112 @@ namespace System
 }
 ```
 
-@[3] ('ref struct' => struct can only be allocated in the stack.)
+@[3] ('ref struct' => **struct can only be allocated in the stack.**)
 @[5-7] (Size of the struct prevents copy as atomic operation.)
 
+---
+
+## Unsafe and MemoryMarshal
+
+- Unsafe
+  + In *System.Runtime.CompilerServices.Unsafe* package
+
+- MemoryMarshal
+  + In *System.Memory* package
+  + Included in .NET Core
+
+## Unsafe and MemoryMarshal
+
+```
+public long Sum()
+{
+    var itemSize = Unsafe.SizeOf<Foo>();
+
+    Span<Foo> buffer = new Foo[100]; // alloc items buffer
+    var rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer);
+
+    var bytesRead = stream.Read(rawBuffer);
+    var sum = 0L;
+    while (bytesRead > 0)
+    {
+        var itemsRead = bytesRead / itemSize;
+        foreach (var foo in buffer.Slice(0, itemsRead))
+            sum += foo.Integer;
+        bytesRead = stream.Read(rawBuffer);
+    }
+    return sum;
+}
+```
+
+@[3] (*Unsafe.SizeOf&lt;Foo&gt;()* gets the size of Foo in bytes.)
+@[5] (Buffer allocation into a *Span&lt;Foo&gt;*)
+@[6] (Masking of the buffer as *Span&lt;byte&gt;*.<br/>Array cast with no copies.)
+@[8, 15] (Read stream into the *Span&lt;byte&gt;*)
+@[12-14] (Read items from the *Span&lt;Foo&gt;*)
+
+NOTE:
+- Lets imagine we a have a service that returns a collection of objects of type Foo. 
+- The collection comes from some remote location so it comes through a stream of bytes. 
+- This means that we need to get a chunk of bytes into a local buffer, convert these into our objects and repeat this process until the end of the collection.
+
 +++
+
+```
+public readonly struct RefEnumerable
+{
+    readonly Stream stream;
+
+    public RefEnumerable(Stream stream)
+    {
+        this.stream = stream;
+    }
+
+    public Enumerator GetEnumerator() => new Enumerator(this);
+
+    public ref struct Enumerator
+    {
+        static readonly int ItemSize = Unsafe.SizeOf<Foo>();
+
+        readonly Stream stream;
+        readonly Span<Foo> buffer;
+        readonly Span<byte> rawBuffer;
+        bool lastBuffer;
+        long loadedItems;
+        int currentItem;
+
+        public Enumerator(RefEnumerable enumerable)
+        {
+            stream = enumerable.stream;
+            buffer = new Foo[100]; // alloc items buffer
+            rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer); // cast items buffer to bytes buffer (no copies)
+            lastBuffer = false;
+            loadedItems = 0;
+            currentItem = -1;
+        }
+
+        public ref readonly Foo Current => ref buffer[currentItem];
+
+        public bool MoveNext()
+        {
+            if (++currentItem != loadedItems) // increment current position and check if reached end of buffer
+                return true;
+            if (lastBuffer) // check if it was the last buffer
+                return false;
+
+            // get next buffer
+            var bytesRead = stream.Read(rawBuffer);
+            lastBuffer = bytesRead < rawBuffer.Length;
+            currentItem = 0;
+            loadedItems = bytesRead / ItemSize;
+            return loadedItems != 0;
+        }
+    }
+}
+```
+
+@[1, 10, 12, 33, 35] (Support for foreach.<br/>Not required to implement IEnumerable)
+
+---
 
 ## Span &lt;T&gt; and Memory&lt;T&gt; give support to other performance features
 
