@@ -536,7 +536,7 @@ ReadOnlySpan<char> str2 = str1.Slice(6, 5);
 Console.WriteLine(str2.ToArray());
 ```
 
-@[1] (Implicit conversion of string to ReadOnlySpan&lt;char&gt;. *AsSpan()* can be called explicitly.)
+@[1] (Implicit conversion of string to ReadOnlySpan&lt;char&gt;.<br/>*AsSpan()* can be called explicitly.)
 @[3] (*Slice()* returns a new ReadOnlySpan&lt;char&gt; for the same block of memory.)
 @[5] (Use *ToString()* or *ToArray()* for backward compatibility.)
 
