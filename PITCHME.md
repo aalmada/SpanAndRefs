@@ -659,18 +659,46 @@ NOTE:
 +++
 
 ```
-public readonly struct RefEnumerable
+public readonly struct FooEnumerable
+{
+    public RefEnumerable(Stream stream)
+    {
+        ...
+    }
+
+    public Enumerator GetEnumerator() => 
+        new Enumerator(this);
+
+    public ref struct Enumerator
+    {
+        public ref readonly Foo Current => 
+            ...
+
+        public bool MoveNext()
+        {
+        	...
+        }
+    }
+}
+```
+
+@[1, 8-9, 11-20] (Support for foreach.<br/>Not required to implement IEnumerable)
+
++++
+
+```
+public readonly struct FooEnumerable
 {
     readonly Stream stream;
 
-    public RefEnumerable(Stream stream)
+    public FooEnumerable(Stream stream)
     {
         this.stream = stream;
     }
 
     public Enumerator GetEnumerator() => new Enumerator(this);
 
-    public ref struct Enumerator
+    public unsafe ref struct Enumerator
     {
         static readonly int ItemSize = Unsafe.SizeOf<Foo>();
 
@@ -681,11 +709,11 @@ public readonly struct RefEnumerable
         long loadedItems;
         int currentItem;
 
-        public Enumerator(RefEnumerable enumerable)
+        public Enumerator(in FooEnumerable enumerable)
         {
             stream = enumerable.stream;
-            buffer = new Foo[100]; // alloc items buffer
-            rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer); // cast items buffer to bytes buffer (no copies)
+            buffer = new Foo[100]; 
+            rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer);
             lastBuffer = false;
             loadedItems = 0;
             currentItem = -1;
@@ -711,7 +739,9 @@ public readonly struct RefEnumerable
 }
 ```
 
-@[1, 10, 12, 33, 35] (Support for foreach.<br/>Not required to implement IEnumerable)
+@[12, 17-18] (Spans become fields so Enumerator has to be *'ref struct'*.)
+@[35-48] (Enumeration moves into *MoveNext()*.)
+@[33] (*Current* returns a reference to current item in the buffer.)
 
 ---
 
