@@ -553,7 +553,7 @@ NOTE:
 
 +++
 
-## View into any arbitrary contiguous block of memory
+## APIs similar to the arrays
 
 ```
 ReadOnlySpan<int> buffer = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -821,6 +821,89 @@ public readonly struct FooEnumerable
 @[12, 17-18] (Spans become fields so Enumerator has to be *'ref struct'*.)
 @[35-49] (Enumeration moves into *MoveNext()*.)
 @[33] (*Current* returns a reference to current item in the buffer.)
+
++++
+
+```
+public struct readonly Enumerable : IEnumerable<Foo>
+{
+    readonly Stream stream;
+ 
+    public Enumerable(Stream stream)
+    {
+        this.stream = stream;
+    }
+
+    public IEnumerator<Foo> GetEnumerator() => new Enumerator(this);
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public struct Enumerator : IEnumerator<Foo>
+    {
+        static readonly int ItemSize = Unsafe.SizeOf<Foo>();
+
+        readonly Stream stream;
+        readonly Memory<Foo> buffer;
+        bool lastBuffer;
+        long loadedItems;
+        int currentItem;
+
+        public Enumerator(Enumerable enumerable)
+        {
+            stream = enumerable.stream;
+            buffer = new Foo[100]; // alloc items buffer
+            lastBuffer = false;
+            loadedItems = 0;
+            currentItem = -1;
+        }
+
+        public Foo Current => buffer.Span[currentItem];
+
+        object IEnumerator.Current => Current;
+
+        public bool MoveNext()
+        {
+            // increment current position and check if reached end of buffer
+            if (++currentItem != loadedItems) 
+                return true;
+            // check if it was the last buffer
+            if (lastBuffer) 
+                return false;
+
+            // get next buffer
+            var rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer);
+            var bytesRead = stream.Read(rawBuffer);
+            lastBuffer = bytesRead < rawBuffer.Length;
+            currentItem = 0;
+            loadedItems = bytesRead / ItemSize;
+            return loadedItems != 0;
+        }
+
+        public void Reset() => throw new NotImplementedException();
+
+        public void Dispose()
+        {
+            // nothing to do
+        }
+    }
+}
+```
+
+@[1, 13] (Implement interfaces *IEnumerable&lt;T&gt;* and *IEnumerator&lt;T&gt;*.)
+@[13] (Enumerator can't be 'ref struct'.)
+@[18] (Fields have to be Memory&lt;T&gt;.)
+@[32] (*Current* can't return a reference.)
+@[32] (Create *Span&lt;T&gt;* when required.)
+@[32] (*MemoryMarshal&lt;T, U&gt;.Cast()* supports *Memory&lt;T&gt;*.)
+
+
+NOTE:
+
+- We want to support use of LINQ. 
+- LINQ is a collection of extension methods to IEnumerable.
+- We have to implement IEnumerable.
+- Structs that implement interfaces can be "boxed".
+- We keep it as a 'struct' for better performance. No VTABLE!!!
 
 ---
 
