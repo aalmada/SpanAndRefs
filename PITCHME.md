@@ -668,7 +668,7 @@ public class MyClass
 
 @[1] ('class' is a value type => allocated on the heap)
 @[3-8] (Use *Memory&lt;T&gt;*.)
-@[0-14] (Create *Span&lt;T&gt;* when required = Cheap operation!)
+@[12-13] (Create *Span&lt;T&gt;* when required = Cheap operation!)
 
 NOTE:
 
