@@ -769,7 +769,7 @@ public readonly struct FooEnumerable
 
 ---
 
-## Span &lt;T&gt; and Memory&lt;T&gt; give support to other performance features
+# Features to explore
 
 - System.Buffers.ArrayPool
 - System.Buffers.Text.Utf8Parser
