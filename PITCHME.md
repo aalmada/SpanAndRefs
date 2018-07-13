@@ -592,44 +592,45 @@ NOTE:
 
 +++
 
-## Span limitations
+## Span&lt;T&gt; limitations
 
 ```
-namespace System
+public readonly ref struct Span<T>
 {
-    public readonly ref struct Span<T>
-    {
-		readonly Pinnable<T> _pinnable;
-        readonly IntPtr _byteOffset;
-        readonly int _length;
-    }
+	readonly Pinnable<T> _pinnable;
+    readonly IntPtr _byteOffset;
+    readonly int _length;
 }
 ```
 
 @[3] ('ref struct' => **struct can only be allocated in the stack.**)
 @[5-7] (Size of the struct prevents copy as atomic operation.)
 
----
++++
 
-## Unsafe and MemoryMarshal
+## Span&lt;T&gt; limitations
 
-- Unsafe
-  + In *System.Runtime.CompilerServices.Unsafe* package
-
-- MemoryMarshal
-  + In *System.Memory* package
-  + Included in .NET Core
+### Span&lt;T&gt; can't survive a scope exit!
 
 +++
 
-## Unsafe and MemoryMarshal
+## Memory&lt;T&gt;
+
+- Can be allocated on the heap!
+- A factory of *Span&lt;T&gt;*.
+
+---
+
+#Examples
+
++++
 
 ```
 public long Sum()
 {
     var itemSize = Unsafe.SizeOf<Foo>();
 
-    Span<Foo> buffer = new Foo[100]; // alloc items buffer
+    Span<Foo> buffer = stackalloc Foo[100]; 
     var rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer);
 
     var bytesRead = stream.Read(rawBuffer);
@@ -646,15 +647,26 @@ public long Sum()
 ```
 
 @[3] (*Unsafe.SizeOf&lt;Foo&gt;()* gets the size of Foo in bytes.)
-@[5] (Buffer allocation into a *Span&lt;Foo&gt;*)
+@[5] (Buffer allocation in the stack and kept as *Span&lt;Foo&gt;*)
 @[6] (Masking of the buffer as *Span&lt;byte&gt;*.<br/>Array cast with no copies.)
 @[8, 15] (Read stream into the *Span&lt;byte&gt;*)
 @[12-14] (Read items from the *Span&lt;Foo&gt;*)
 
 NOTE:
-- Lets imagine we a have a service that returns a collection of objects of type Foo. 
+- We a have a service that returns a collection of objects of type Foo. 
 - The collection comes from some remote location so it comes through a stream of bytes. 
 - This means that we need to get a chunk of bytes into a local buffer, convert these into our objects and repeat this process until the end of the collection.
+
++++
+
+## Unsafe and MemoryMarshal
+
+- *Unsafe*
+  + In *System.Runtime.CompilerServices.Unsafe* package
+
+- *MemoryMarshal*
+  + In *System.Memory* package
+  + Included in .NET Core
 
 +++
 
@@ -665,9 +677,11 @@ foreach (var foo in new FooEnumerable(stream))
 Console.WriteLine(sum);
 ```
 
+@[2-3]
+
 NOTE:
 
-Imagine I now want to make enumeration reusable so that I can perform other calculations
+We want to make enumeration reusable so that I can perform other calculations
 
 +++
 
@@ -731,9 +745,11 @@ public readonly struct FooEnumerable
 
         public bool MoveNext()
         {
-            if (++currentItem != loadedItems) // increment current position and check if reached end of buffer
+        	// increment current position and check if reached end of buffer
+            if (++currentItem != loadedItems) 
                 return true;
-            if (lastBuffer) // check if it was the last buffer
+            // check if it was the last buffer
+            if (lastBuffer) 
                 return false;
 
             // get next buffer
@@ -748,7 +764,7 @@ public readonly struct FooEnumerable
 ```
 
 @[12, 17-18] (Spans become fields so Enumerator has to be *'ref struct'*.)
-@[35-48] (Enumeration moves into *MoveNext()*.)
+@[35-49] (Enumeration moves into *MoveNext()*.)
 @[33] (*Current* returns a reference to current item in the buffer.)
 
 ---
@@ -789,4 +805,8 @@ public readonly struct FooEnumerable
 - [P/Invoking using Span<T>](https://medium.com/@antao.almada/p-invoking-using-span-t-a398b86f95d3) by Antão Almada
 - [Slicing managed arrays using Span<T>](https://medium.com/@antao.almada/slicing-managed-arrays-ae4f412a5d9e) by Antão Almada
 - [Introducing .NET Core 2.1 Flagship Types: Span T and Memory T](https://www.codemag.com/Article/1807051/Introducing-.NET-Core-2.1-Flagship-Types-Span-T-and-Memory-T) by  Ahson A. Khan
+
+---
+
+## https://gitpitch.com/aalmada/spanandrefs/master
 
