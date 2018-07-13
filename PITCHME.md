@@ -50,7 +50,7 @@ All these can significantly improve performance both CPU and memory.
 - Single, Double, Decimal
 - Boolean, Char
 - **'struct'**
-- 
+
 +++
 
 ## Reference Types
@@ -457,6 +457,10 @@ public static ref Angle MaxBy(this Angle[] angles)
 @[9] (Keeps a reference to the current item of the array)
 @[10-11] (Keep a reference to the largest value of the two references)
 @[14] (Return a reference to the item with the largest value)
+
+NOTE:
+
+[SharpLab.io](https://sharplab.io/#v2:EYLgHgbALAPgAgBgARwIwG4CwAoHcDMSATgKYCGAJgPYB2ANgJ5IDOALkQK4DGrSAgjQDmdEjgDeOJFJSFSlWoyQBLGrwAiJQaRLMs2aTOLlq9Jit4BZFR1Y69Bgkfmmk1DsBFIAyiS60KupLSQVKOAsIkABTmrprazAA0yqpIALbWtomuVO6ezL7+zACUSAC8AHwhBkiRGlokOklWNDaN3gU0ASWlNVUGAJAUcQ1ZfdL96S2ZSAA8SBDIAPxpGTpIIEisABZEVADuSDQkB3xEghypJKoA8jbXAGYASmRCJACiYFwkAA6sSrSRGhkS5Ue6RSatYpFJJjKT9fJ+TrMWbzBAAOiWLA6AXWmx2+0Ox34ZwuV1Yt3JTxegnenx+fwBQJBYIRhSKRSq/SK9mqUiqjjQEGyuRISAAKlQ6vFojR+EJPNSRN1KvpeUhFSQ0VKRkgANTq+Wa5qQpAAelRGL1BoiaJ8iJx5vwC3RCB5fNVoUIVAAbiQiEQlEMUKhkBKvOwVIJIsrYUgACQAIjE2p0AF8AA1IMTGzKpgDkWbthVTAB0Ewm9KmcHhCIKkN8yEQ/mQ6CgAExID62GjMf498T9HD9AWoIWke5yiJICxkMAAIQYkW2SmR4REAG0ALrWkTFIcSbD9fpKCeRDXMNEAGSugm2ZR6CA5h6P212ByOJxJl1UHy+vz7gLAiQoJnoaUJ6EO/Tjkg3qNmks5lEYE7nuuCCbnoR73FQRA1LBOEqEMYCIRgySESi55Xje2zoKRJBgLqupPkeB5HlBJATnhSBcBw/pkoh0EoQRdHoZBx6nmumoSimzCRNxvGqCU5STiIaJScMOjgrO7KiUeqQIT00FyaQqgYf0Va4M+cAAOxIfBYAYeZ5k1u2nZgMC3yeOI/K1qOKBQMGAAc0ZIFULEGJx56IR+W5ZrGBgfspURDPUOgbAAnAgSQQpkGz4JlWL2swGwutCcXSAlEmRMl8Tpfl2WpUgeVJKySIbKgGKlR6apSBVhpVepRVIBlWWrINTUFYUxUdQksapm61SxhRM7zou3SEicfXVSMbUjVMDVts12JjR180GLGWFyFwWyRBFhrJDuOhPt1w6oGloERNyVSOTgQA=)
 
 +++
 
