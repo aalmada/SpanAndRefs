@@ -695,7 +695,7 @@ public readonly struct FooEnumerable
 }
 ```
 
-@[1, 8-9, 11-20] (Support for foreach.<br/>Not required to implement IEnumerable)
+@[1, 8-9, 11-20] (Support for foreach.<br/>Looks like IEnumerable but doesn't require its implemention.)
 
 +++
 
