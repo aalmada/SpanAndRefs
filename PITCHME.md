@@ -674,17 +674,12 @@ Imagine I now want to make enumeration reusable so that I can perform other calc
 ```
 public readonly struct FooEnumerable
 {
-    ...
-
     public Enumerator GetEnumerator() => 
         new Enumerator(this);
 
     public ref struct Enumerator
     {
-        ...
-        
-        public ref readonly Foo Current => 
-            ...
+        public ref readonly Foo Current => ...
 
         public bool MoveNext()
         {
@@ -694,7 +689,8 @@ public readonly struct FooEnumerable
 }
 ```
 
-@[1, 8-9, 11-20] (Support for foreach.<br/>Looks like IEnumerable but doesn't require its implemention.)
+@[3, 8, 10] (Support for foreach.<br/>Looks like IEnumerable but doesn't require its implemention.)
+@[1, 6] (No interfaces implemented.)
 
 +++
 
