@@ -621,7 +621,7 @@ public readonly ref struct Span<T>
 
 ---
 
-#Examples
+# Examples
 
 +++
 
@@ -777,7 +777,7 @@ public readonly struct FooEnumerable
 
 ---
 
-#Thank you!
+# Thank you!
 
 @fa[twitter] [@AntaoAlmada](https://twitter.com/AntaoAlmada) <br/>
 
