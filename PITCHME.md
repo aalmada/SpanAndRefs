@@ -610,8 +610,8 @@ public readonly ref struct Span<T>
 }
 ```
 
-@[3] ('ref struct' => **struct can only be allocated in the stack.**)
-@[5-7] (Size of the struct prevents copy as atomic operation.)
+@[1] ('ref struct' => **struct can only be allocated in the stack.**)
+@[3-5] (Size of the struct prevents copy as atomic operation.)
 
 +++
 
