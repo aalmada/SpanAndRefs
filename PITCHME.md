@@ -674,16 +674,15 @@ Imagine I now want to make enumeration reusable so that I can perform other calc
 ```
 public readonly struct FooEnumerable
 {
-    public RefEnumerable(Stream stream)
-    {
-        ...
-    }
+    ...
 
     public Enumerator GetEnumerator() => 
         new Enumerator(this);
 
     public ref struct Enumerator
     {
+        ...
+        
         public ref readonly Foo Current => 
             ...
 
