@@ -60,25 +60,15 @@ All these can significantly improve performance both CPU and memory.
 
 +++
 
-## Value Types
-
-- Allocated on the stack 
-  + Except when "boxed"
-- Arguments passed by value
-  + Full content is copied every time
-
-Note:
-
-- Allocated on the stack **is an advantage**.
-- Arguments passed by value **may be a disadvange**.
-
-+++
-
 ## Value over Reference Types
 
-- Smaller memory footprint.
-- Less GC overhead.
-- Better performance on interface method calls.
+- Allocated on the stack (except when "boxed")
+  + Less GC overhead.
+- No "methods table".
+  + Smaller memory footprint.
+  + Better performance on interface method calls.
+- Passed-by-value
+  + **More overhead when calling methods!**
 
 +++
 
