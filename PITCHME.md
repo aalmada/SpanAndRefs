@@ -390,6 +390,11 @@ NOTE:
 ## Max
 
 ```
+public static Angle Max(Angle left, Angle right) =>
+    Angle.ToDegrees(left) > Angle.ToDegrees(right) ? 
+        left : 
+        right;
+        
 public static ref readonly Angle Max(in Angle left, in Angle right) =>
     ref Angle.ToDegrees(left) > Angle.ToDegrees(right) ? 
         ref left : 
@@ -404,8 +409,9 @@ public static ref readonly Angle Max(in Angle left, in Angle right)
 }
 ```
 
-@[1-4] (lambda-style syntax)
-@[6-12] (classic syntax)
+@[1-4] (with copies)
+@[6-9] (no copies - lambda-style syntax)
+@[10-17] (no copies - classic syntax)
 
 NOTE: 
 
