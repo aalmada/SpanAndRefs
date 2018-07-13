@@ -889,7 +889,7 @@ public struct readonly Enumerable : IEnumerable<Foo>
 }
 ```
 
-@[1, 14 (Implement interfaces *IEnumerable&lt;T&gt;* and *IEnumerator&lt;T&gt;*.)
+@[1, 14] (Implement interfaces *IEnumerable&lt;T&gt;* and *IEnumerator&lt;T&gt;*.)
 @[14] (Enumerator can't be 'ref struct'.)
 @[19] (Fields have to be Memory&lt;T&gt;.)
 @[33] (*Current* can't return a reference.)
