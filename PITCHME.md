@@ -49,14 +49,21 @@ All these can significantly improve performance both CPU and memory.
 - Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64 
 - Single, Double, Decimal
 - Boolean, Char
-- User-defined structs
+- **'struct'**
+- 
++++
+
+## Reference Types
+
+- String
+- **'class'**
 
 +++
 
 ## Value Types
 
 - Allocated on the stack 
-  + Except when boxed
+  + Except when "boxed"
 - Arguments passed by value
   + Full content is copied every time
 
@@ -608,9 +615,29 @@ public readonly ref struct Span<T>
 
 +++
 
-## Span&lt;T&gt; limitations
-
 ### Span&lt;T&gt; can't survive a scope exit!
+
+Can be used as:
+- Local variables.
+- Fields in a 'ref struct'.
+
++++
+
+```
+public ref struct MyStruct 
+{
+    readonly ReadOnlySpan<int> buffer;
+    
+    public MyStruct(ReadOnlySpan<int> buffer) 
+    {
+        this.buffer = buffer;
+    }
+}
+```
+
+NOTE:
+
+[SharpLab.io](https://sharplab.io/#v2:EYLgHgbALAPgAgBgARwIwG4CwAoHcDMSATgKYBmSAzgC5ECuAxtUgLICeAyrY8zgN44kQ4iQCGAEwD2AOwA2bJACUx4gPJzOAB1HSAPAEtp1AHxJgdMmRJEs2YUkHCCrTtyYAKZRPXyO2vYYmZhZWRACUDnbCAlH2QtQAFvqUAHTmltZIALzBGTaOQgC+OIVAA==)
 
 +++
 
@@ -618,6 +645,34 @@ public readonly ref struct Span<T>
 
 - Can be allocated on the heap!
 - A factory of *Span&lt;T&gt;*.
+
++++
+
+```
+public class MyClass 
+{
+    readonly Memory<int> buffer;
+    
+    public MyClass(Memory<int> buffer) 
+    {
+        this.buffer = buffer;
+    }
+    
+    public void DoSomething()
+    {
+        Span<int> span = buffer.Span;
+        Span<int> slice = span.Slice(0, 2);
+    }
+}
+```
+
+@[1] ('class' is a value type => allocated on the heap)
+@[3-8] (Use *Memory&lt;T&gt;*.)
+@[0-14] (Create *Span&lt;T&gt;* when required = Cheap operation!)
+
+NOTE:
+
+[SharpLab.io](https://sharplab.io/#v2:EYLgHgbALAPgAgBgARwIwG4CwAoHcDMKATEgLICeAwgDYCGAzvUjgN45IdIBOAprQCYB7AHbVyZHgFtBXcgB4AlsIAuAPiTAArgDNtPLlmydmRzgTJU6jABSkpM+UrUadergEoTxtqeMdlABYK9AB0Wrr6SAC8LhEG7JwAvgkcKSiEcFBIACKCAMqCkjyBSgDm1u5pPn6ceQAOtMKKKur0DcLRsW4h9Y2GNRy9TU6t1AoAxjydbY09Y5PWCAA0SETu/Uk4iUA===)
 
 ---
 
