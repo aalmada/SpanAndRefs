@@ -889,12 +889,12 @@ public struct readonly Enumerable : IEnumerable<Foo>
 }
 ```
 
-@[1, 13] (Implement interfaces *IEnumerable&lt;T&gt;* and *IEnumerator&lt;T&gt;*.)
-@[13] (Enumerator can't be 'ref struct'.)
-@[18] (Fields have to be Memory&lt;T&gt;.)
-@[32] (*Current* can't return a reference.)
-@[32] (Create *Span&lt;T&gt;* when required.)
-@[32] (*MemoryMarshal&lt;T, U&gt;.Cast()* supports *Memory&lt;T&gt;*.)
+@[1, 14 (Implement interfaces *IEnumerable&lt;T&gt;* and *IEnumerator&lt;T&gt;*.)
+@[14] (Enumerator can't be 'ref struct'.)
+@[19] (Fields have to be Memory&lt;T&gt;.)
+@[33] (*Current* can't return a reference.)
+@[33] (Create *Span&lt;T&gt;* when required.)
+@[47] (*MemoryMarshal&lt;T, U&gt;.Cast()* supports *Memory&lt;T&gt;*.)
 
 
 NOTE:
