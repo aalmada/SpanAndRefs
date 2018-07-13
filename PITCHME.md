@@ -659,6 +659,19 @@ NOTE:
 +++
 
 ```
+var sum = 0L;
+foreach (var foo in new FooEnumerable(stream))
+    sum += foo.Integer;
+Console.WriteLine(sum);
+```
+
+NOTE:
+
+Imagine I now want to make enumeration reusable so that I can perform other calculations
+
++++
+
+```
 public readonly struct FooEnumerable
 {
     public RefEnumerable(Stream stream)
