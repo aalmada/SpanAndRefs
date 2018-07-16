@@ -36,7 +36,7 @@ All these can significantly improve performance both CPU and memory.
 
 +++
 
-## .NET Types 
+## Classes of types in .NET 
 
 - Value Types
 - Reference Types
@@ -49,6 +49,7 @@ All these can significantly improve performance both CPU and memory.
 - Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64 
 - Single, Double, Decimal
 - Boolean, Char
+- **'enum'**
 - **'struct'**
 
 +++
@@ -64,11 +65,16 @@ All these can significantly improve performance both CPU and memory.
 
 - Allocated on the stack (except when "boxed")
   + Less GC overhead.
-- No "methods table".
+- No "ObjectHeader" and "MethodTable".
   + Smaller memory footprint.
   + Better performance on interface method calls.
 - Passed-by-value
+  + Values are copied.
   + **More overhead when calling methods!**
+
+NOTE:
+
+["Value Types vs Reference Types"](http://adamsitnik.com/Value-Types-vs-Reference-Types/) by [Adam Sitnik](http://adamsitnik.com/)
 
 +++
 
@@ -484,7 +490,6 @@ Extension method not possible on *IEnumerable* or *IList* as they don't return r
 ---
 
 # Span &lt;T&gt; and Memory&lt;T&gt;
-
 
 +++
 
