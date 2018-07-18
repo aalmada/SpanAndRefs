@@ -559,29 +559,29 @@ NOTE:
 +++
 
 ```
-    Method | StartIndex | Length |       Mean |     Error |    StdDev |  Gen 0 | Allocated |
----------- |----------- |------- |-----------:|----------:|----------:|-------:|----------:|
- Substring |          0 |     10 |  9.7114 ns | 0.4923 ns | 0.7809 ns | 0.0114 |      48 B |
-     Slice |          0 |     10 |  1.0605 ns | 0.0577 ns | 0.0932 ns |      - |       0 B |
- Substring |          0 |    100 | 20.9450 ns | 0.3218 ns | 0.3010 ns | 0.0553 |     232 B |
-     Slice |          0 |    100 |  0.9721 ns | 0.0154 ns | 0.0144 ns |      - |       0 B |
- Substring |          0 |    200 | 41.3969 ns | 0.4674 ns | 0.4372 ns | 0.1029 |     432 B |
-     Slice |          0 |    200 |  0.9916 ns | 0.0522 ns | 0.0558 ns |      - |       0 B |
- Substring |          0 |    300 | 47.8664 ns | 0.4836 ns | 0.4287 ns | 0.1506 |     632 B |
-     Slice |          0 |    300 |  0.9916 ns | 0.0203 ns | 0.0159 ns |      - |       0 B |
- Substring |        100 |     10 |  9.8050 ns | 0.4546 ns | 0.4465 ns | 0.0114 |      48 B |
-     Slice |        100 |     10 |  0.9745 ns | 0.0191 ns | 0.0160 ns |      - |       0 B |
- Substring |        100 |    100 | 22.2896 ns | 0.4100 ns | 0.3423 ns | 0.0553 |     232 B |
-     Slice |        100 |    100 |  0.9595 ns | 0.0166 ns | 0.0148 ns |      - |       0 B |
- Substring |        100 |    200 | 34.1348 ns | 0.4261 ns | 0.3986 ns | 0.1029 |     432 B |
-     Slice |        100 |    200 |  0.9715 ns | 0.0220 ns | 0.0195 ns |      - |       0 B |
- Substring |        100 |    300 | 49.9796 ns | 0.4368 ns | 0.3872 ns | 0.1506 |     632 B |
-     Slice |        100 |    300 |  0.9744 ns | 0.0179 ns | 0.0168 ns |      - |       0 B |
+    Method | StartIndex | Length |       Mean |  Gen 0 | Allocated |
+---------- |----------- |------- |-----------:|-------:|----------:|
+ Substring |          0 |     10 |  9.7114 ns | 0.0114 |      48 B |
+ Substring |          0 |    100 | 20.9450 ns | 0.0553 |     232 B |
+ Substring |          0 |    200 | 41.3969 ns | 0.1029 |     432 B |
+ Substring |          0 |    300 | 47.8664 ns | 0.1506 |     632 B |
+ Substring |        100 |     10 |  9.8050 ns | 0.0114 |      48 B |
+ Substring |        100 |    100 | 22.2896 ns | 0.0553 |     232 B |
+ Substring |        100 |    200 | 34.1348 ns | 0.1029 |     432 B |
+ Substring |        100 |    300 | 49.9796 ns | 0.1506 |     632 B |
+     Slice |          0 |     10 |  1.0605 ns |      - |       0 B |
+     Slice |          0 |    100 |  0.9721 ns |      - |       0 B |
+     Slice |          0 |    200 |  0.9916 ns |      - |       0 B |
+     Slice |          0 |    300 |  0.9916 ns |      - |       0 B |
+     Slice |        100 |     10 |  0.9745 ns |      - |       0 B |
+     Slice |        100 |    100 |  0.9595 ns |      - |       0 B |
+     Slice |        100 |    200 |  0.9715 ns |      - |       0 B |
+     Slice |        100 |    300 |  0.9744 ns |      - |       0 B |
 ```
 
 +++
 
-## StartIndex
+## Length
 
 <canvas data-chart="line">
 <!-- 
@@ -606,7 +606,7 @@ NOTE:
 
 +++
 
-## Allocated
+## Allocated Heap
 
 <canvas data-chart="line">
 <!-- 
@@ -1026,5 +1026,7 @@ NOTE:
 
 https://gitpitch.com/aalmada/spanandrefs/master
 
+
+```
 
 ```
