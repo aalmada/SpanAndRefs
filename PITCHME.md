@@ -180,10 +180,10 @@ Example.CallByReference()
 ## benchmarks
 
 ```
-          Method |      Mean |     Error |    StdDev | Scaled | ScaledSD |
----------------- |----------:|----------:|----------:|-------:|---------:|
-     CallByValue | 0.0489 ns | 0.0115 ns | 0.0102 ns |   1.00 |     0.00 |
- CallByReference | 0.0164 ns | 0.0062 ns | 0.0049 ns |   0.36 |     0.15 |
+          Method |      Mean | Scaled |
+---------------- |----------:|-------:|
+     CallByValue | 0.0489 ns |   1.00 |
+ CallByReference | 0.0164 ns |   0.36 |
 ```
 
 +++
