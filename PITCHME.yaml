@@ -1,5 +1,3 @@
-published : false
-charts : true
-theme-override : custom.css
+theme-override : assets/css/PITCHME.css
 logo : tugait.png
 logo-position : bottom-right
