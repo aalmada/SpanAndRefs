@@ -1,4 +1,4 @@
-@title[Span&lt;T&gt; and Refs]
+---?image=Background.png
 
 # Span&lt;T&gt; and Refs 
 
