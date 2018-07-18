@@ -1,3 +1,5 @@
 published : false
 charts : true
 theme-override : custom.css
+logo : TugaIt.png
+logo-position : bottom-right
