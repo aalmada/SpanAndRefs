@@ -558,6 +558,79 @@ NOTE:
 
 +++
 
+```
+    Method | StartIndex | Length |       Mean |     Error |    StdDev |  Gen 0 | Allocated |
+---------- |----------- |------- |-----------:|----------:|----------:|-------:|----------:|
+ Substring |          0 |     10 |  9.7114 ns | 0.4923 ns | 0.7809 ns | 0.0114 |      48 B |
+     Slice |          0 |     10 |  1.0605 ns | 0.0577 ns | 0.0932 ns |      - |       0 B |
+ Substring |          0 |    100 | 20.9450 ns | 0.3218 ns | 0.3010 ns | 0.0553 |     232 B |
+     Slice |          0 |    100 |  0.9721 ns | 0.0154 ns | 0.0144 ns |      - |       0 B |
+ Substring |          0 |    200 | 41.3969 ns | 0.4674 ns | 0.4372 ns | 0.1029 |     432 B |
+     Slice |          0 |    200 |  0.9916 ns | 0.0522 ns | 0.0558 ns |      - |       0 B |
+ Substring |          0 |    300 | 47.8664 ns | 0.4836 ns | 0.4287 ns | 0.1506 |     632 B |
+     Slice |          0 |    300 |  0.9916 ns | 0.0203 ns | 0.0159 ns |      - |       0 B |
+ Substring |        100 |     10 |  9.8050 ns | 0.4546 ns | 0.4465 ns | 0.0114 |      48 B |
+     Slice |        100 |     10 |  0.9745 ns | 0.0191 ns | 0.0160 ns |      - |       0 B |
+ Substring |        100 |    100 | 22.2896 ns | 0.4100 ns | 0.3423 ns | 0.0553 |     232 B |
+     Slice |        100 |    100 |  0.9595 ns | 0.0166 ns | 0.0148 ns |      - |       0 B |
+ Substring |        100 |    200 | 34.1348 ns | 0.4261 ns | 0.3986 ns | 0.1029 |     432 B |
+     Slice |        100 |    200 |  0.9715 ns | 0.0220 ns | 0.0195 ns |      - |       0 B |
+ Substring |        100 |    300 | 49.9796 ns | 0.4368 ns | 0.3872 ns | 0.1506 |     632 B |
+     Slice |        100 |    300 |  0.9744 ns | 0.0179 ns | 0.0168 ns |      - |       0 B |
+```
+
++++
+
+## StartIndex
+
+<canvas data-chart="line">
+<!-- 
+{
+ "data": {
+  "labels": ["10","100","200","300"],
+  "datasets": [
+   {
+    "data":[9.8050,22.2896,34.1348,49.9796],
+    "label":"Substring","backgroundColor":"rgba(20,220,220,.8)"
+   },
+   {
+    "data":[0.9745,0.9595,0.9715,0.9744],
+    "label":"Slice","backgroundColor":"rgba(220,120,120,.8)"
+   }
+  ]
+ }, 
+ "options": { "responsive": "true" }
+}
+-->
+</canvas>
+
++++
+
+## Allocated
+
+<canvas data-chart="line">
+<!-- 
+{
+ "data": {
+  "labels": ["10","100","200","300"],
+  "datasets": [
+   {
+    "data":[48,232,432,632],
+    "label":"Substring","backgroundColor":"rgba(20,220,220,.8)"
+   },
+   {
+    "data":[0,0,0,0],
+    "label":"Slice","backgroundColor":"rgba(220,120,120,.8)"
+   }
+  ]
+ }, 
+ "options": { "responsive": "true" }
+}
+-->
+</canvas>
+
++++
+
 ## APIs similar to the arrays
 
 ```
@@ -692,7 +765,7 @@ public long Sum()
 
     Span<Foo> buffer = stackalloc Foo[100]; 
     var rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer);
-
+    
     var bytesRead = stream.Read(rawBuffer);
     var sum = 0L;
     while (bytesRead > 0)
@@ -754,7 +827,7 @@ public readonly struct FooEnumerable
     public ref struct Enumerator
     {
         public ref readonly Foo Current => ...
-
+    
         public bool MoveNext()
         {
         	...
@@ -777,20 +850,20 @@ public readonly struct FooEnumerable
     {
         this.stream = stream;
     }
-
+    
     public Enumerator GetEnumerator() => new Enumerator(this);
-
+    
     public unsafe ref struct Enumerator
     {
         static readonly int ItemSize = Unsafe.SizeOf<Foo>();
-
+    
         readonly Stream stream;
         readonly Span<Foo> buffer;
         readonly Span<byte> rawBuffer;
         bool lastBuffer;
         long loadedItems;
         int currentItem;
-
+    
         public Enumerator(in FooEnumerable enumerable)
         {
             stream = enumerable.stream;
@@ -800,9 +873,9 @@ public readonly struct FooEnumerable
             loadedItems = 0;
             currentItem = -1;
         }
-
+    
         public ref readonly Foo Current => ref buffer[currentItem];
-
+    
         public bool MoveNext()
         {
         	// increment current position and check if reached end of buffer
@@ -811,7 +884,7 @@ public readonly struct FooEnumerable
             // check if it was the last buffer
             if (lastBuffer) 
                 return false;
-
+    
             // get next buffer
             var bytesRead = stream.Read(rawBuffer);
             lastBuffer = bytesRead < rawBuffer.Length;
@@ -833,26 +906,26 @@ public readonly struct FooEnumerable
 public struct readonly Enumerable : IEnumerable<Foo>
 {
     readonly Stream stream;
- 
+
     public Enumerable(Stream stream)
     {
         this.stream = stream;
     }
-
+    
     public IEnumerator<Foo> GetEnumerator() => new Enumerator(this);
-
+    
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
+    
     public struct Enumerator : IEnumerator<Foo>
     {
         static readonly int ItemSize = Unsafe.SizeOf<Foo>();
-
+    
         readonly Stream stream;
         readonly Memory<Foo> buffer;
         bool lastBuffer;
         long loadedItems;
         int currentItem;
-
+    
         public Enumerator(Enumerable enumerable)
         {
             stream = enumerable.stream;
@@ -861,11 +934,11 @@ public struct readonly Enumerable : IEnumerable<Foo>
             loadedItems = 0;
             currentItem = -1;
         }
-
+    
         public Foo Current => buffer.Span[currentItem];
-
+    
         object IEnumerator.Current => Current;
-
+    
         public bool MoveNext()
         {
             // increment current position and check if reached end of buffer
@@ -874,7 +947,7 @@ public struct readonly Enumerable : IEnumerable<Foo>
             // check if it was the last buffer
             if (lastBuffer) 
                 return false;
-
+    
             // get next buffer
             var rawBuffer = MemoryMarshal.Cast<Foo, byte>(buffer);
             var bytesRead = stream.Read(rawBuffer);
@@ -883,9 +956,9 @@ public struct readonly Enumerable : IEnumerable<Foo>
             loadedItems = bytesRead / ItemSize;
             return loadedItems != 0;
         }
-
+    
         public void Reset() => throw new NotImplementedException();
-
+    
         public void Dispose()
         {
             // nothing to do
@@ -953,3 +1026,5 @@ NOTE:
 
 https://gitpitch.com/aalmada/spanandrefs/master
 
+
+```
