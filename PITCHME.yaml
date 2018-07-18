@@ -1,3 +1,4 @@
-theme-override : assets/css/PITCHME.css
 logo : assets/img/tugait.png
 logo-position : bottom-right
+theme : beige
+theme-override : assets/css/PITCHME.css
