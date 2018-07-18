@@ -1,4 +1,4 @@
----?image=Background.png
+---?image=assets/img/background.png
 
 # Span&lt;T&gt; and Refs 
 
@@ -511,7 +511,7 @@ Imagine that we have a string and want to output just a portion...
 
 +++
 
-![Substring](Substring.png)
+![Substring](assets/img/substring.png)
 
 NOTE:
 
@@ -525,7 +525,7 @@ NOTE:
 
 +++
 
-![Span](Span.png)
+![Span](assets/img/span.png)
 
 +++
 
