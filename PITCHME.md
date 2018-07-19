@@ -638,7 +638,7 @@ ReadOnlySpan<int> buffer = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
 ReadOnlySpan<int> slice = buffer.Slice(2, 3);
         
-for(int index = 0; index < buffer.Length; index++)
+for(int index = 0; index < slice.Length; index++)
 	Console.WriteLine(slice[index]);            
         
 foreach(int item in slice)
