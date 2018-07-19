@@ -1025,8 +1025,3 @@ NOTE:
 ---
 
 https://gitpitch.com/aalmada/spanandrefs/tugait
-
-
-```
-
-```
